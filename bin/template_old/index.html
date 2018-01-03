@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Tunnel</title>
+
+  <link href="etc/css/bootstrap.min.css" rel="stylesheet">
+  <link href="custom/css/base.css" rel="stylesheet">
+</head>
+<body class="main">
+  <div class="container-fluid" id="main-container">
+    <div class="row">
+      <div class="btn-group menubar">
+        <button type="button" class="btn btn-default">Action</button>
+        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <span class="caret"></span>
+          <span class="sr-only">Toggle Dropdown</span>
+        </button>
+        <ul class="dropdown-menu">
+          <li><a href="#">Action</a></li>
+          <li><a href="#">Another action</a></li>
+          <li><a href="#">Something else here</a></li>
+          <li role="separator" class="divider"></li>
+          <li><a href="#">Separated link</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-2" id="serverList">
+        <nav>
+          <ul class="nav">
+            <li role="presentation"><a href="#"><span class="glyphicon glyphicon-play"></span> host 1</a></li>
+            <li class="greyed-out" role="presentation"><a href="#"><span class="glyphicon glyphicon-exclamation-sign"></span> second server</a></li>
+            <li role="presentation"><a href="#"><span class="glyphicon glyphicon-play"></span> third server</a></li>
+          </ul>
+        </nav>
+      </div>
+      <div class="col-md-10" id="mainContent">
+        <div class="panel panel-default">
+          <table class="table table-dark">
+            <thead>
+              <tr>
+                <th>Port #</th>
+                <th>Host:port</th>
+                <th>Name</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">1</th>
+                <td>Mark</td>
+                <td>Otto</td>
+                <td>@mdo</td>
+              </tr>
+              <tr>
+                <th scope="row">2</th>
+                <td>Jacob</td>
+                <td>Thornton</td>
+                <td>@fat</td>
+              </tr>
+              <tr>
+                <th scope="row">3</th>
+                <td>Larry</td>
+                <td>the Bird</td>
+                <td>@twitter</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="etc/js/jquery-3.2.1.min.js"></script>
+  <script src="etc/js/bootstrap.min.js"></script>
+</body>

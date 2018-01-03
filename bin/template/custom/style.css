@@ -1,0 +1,138 @@
+body {
+    background-color: #222222;
+    color: white;
+}
+
+.app-window {
+	height: 100%;
+    height: 800px;
+}
+
+.app-sidebar, .app-main {
+    height: 100%;
+}
+
+.app-sidebar .app-button {
+    background-color: #272727;
+}
+
+.app-button-label {
+    color: #797979;
+}
+
+.app-sidebar {
+	
+}
+.app-sidebar .container-fluid {
+    padding: 0;
+    height: 100%;
+    box-shadow: -2px 155px 15px 0 #0A0A0A inset;
+    -webkit-box-shadow: -2px 155px 15px 0 #0A0A0A inset;
+    -moz-box-shadow: -2px 155px 15px 0 #0A0A0A inset;
+}
+
+.app-sidebar .app-sidebar-shadow {
+    box-shadow: -2px 2px 15px 0 #0A0A0A inset;
+    -webkit-box-shadow: -2px 2px 15px 0 #0A0A0A inset;
+    -moz-box-shadow: -2px 2px 15px 0 #0A0A0A inset;
+}
+
+.app-sidebar .app-last-button {
+    border-left: 0px;
+    border-bottom: 1px;
+    border-right: 1px;
+    border-top: 1px;
+    border-style: solid;
+    border-color: #0A0A0A;
+}
+
+.app-button span {
+	width: 100%;
+	display: inline-block;
+    text-align: center;
+}
+.app-button .glyphicon {
+	margin-top: 15px;
+	font-size: 36px;
+}
+
+.app-button > a {
+    color: #474747;
+}
+
+.app-button > a:hover {
+    cursor: pointer;
+    text-decoration: none;
+}
+.app-button > a:focus {
+    text-decoration: none;
+}
+
+.app-sidebar .app-active-button {
+    background-color: #333333;
+    border: 0;
+}
+
+.app-sidebar-menu a {
+    color: #797979;
+}
+
+.app-sidebar-menu {
+	height: 155px;
+}
+.app-active-button > a {
+    color: #ffffff;
+}
+/* height should be 100 divided by amount of entries */
+.app-sidebar-menu > li {
+	height: 50%;
+}
+
+.app-sidebar {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.app-main {
+    background-color: #333333;
+}
+
+.app-server-table > table, .app-tunnel-table > table {
+    width: 100%;
+}
+.app-server-table > table {
+    font-size: 16px;
+}
+.app-server-table > table, td, th {
+    background-color: #272727;
+    border: 1px solid #333333;
+    padding: 7px;
+}
+
+.row .app-server-table {
+    margin-top: 15px;
+}
+.app-expanded-server {
+    font-size: 13px;
+}
+.app-expanded-server > td {
+    background-color: #333333;
+}
+
+
+
+#startAllServers {
+    margin-top: -5px;
+}
+
+.spacer {
+	height: 15px;
+}
+
+#app-server-operation input[type="text"] {
+	font-size: 18px;
+}
+
+.app-server-commands > td {
+	background-color: #333333 !important;
+}

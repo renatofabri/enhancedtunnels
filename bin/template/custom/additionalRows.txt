@@ -1,0 +1,47 @@
+                                    <tr class="app-expanded-server app-server-commands">
+                                        <td colspan=4>
+                                            <div class="pull-left">
+                                                <button class="btn btn-primary"><span class="glyphicon glyphicon-play"></span> Launch</button>
+                                                <button class="btn btn-default"><span class="glyphicon glyphicon-plus"></span> Tunnel</button>
+                                            </div>
+                                            <div class="pull-right">
+                                                <span class="app-button-label">Server commands: </span>
+                                                <button class="btn btn-default"><span class="glyphicon glyphicon-edit"></span></button>
+                                                <button class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr class="app-expanded-server">
+                                        <td colspan=4>
+                                            <div class="app-tunnel-table">
+                                            <table>
+                                                <tr>
+                                                    <td>Test machine</td>
+                                                    <td>18000</td>
+                                                    <td>200.145.13.100</td>
+                                                    <td>22</td>
+                                                    <td>Connection to testing machine</td>
+                                                    <td>
+                                                        <div class="pull-right">
+                                                            <button class="btn btn-default btn-xs"><span class="glyphicon glyphicon-edit"></span></button>
+                                                            <button class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-trash"></span></button>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Test DB</td>
+                                                    <td>18001</td>
+                                                    <td>200.145.13.100</td>
+                                                    <td>1521</td>
+                                                    <td>DB Connection</td>
+                                                    <td>
+                                                        <div class="pull-right">
+                                                            <button class="btn btn-default btn-xs"><span class="glyphicon glyphicon-edit"></span></button>
+                                                            <button class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-trash"></span></button>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                            </div>
+                                        </td>
+                                    </tr>
