@@ -11,16 +11,16 @@ public class JsOperations {
 	
 	public void callFromJavascript(String msg) {
 		System.out.println("callFromJavascript: " + msg);
-    	}
+	}
   
-    	public void saveServer(JSObject obj) {
+	public void saveServer(JSObject obj) {
 
-    		Server srv = new Server.Builder()
-    				.withName( (String)obj.getMember("serverName"))
-					.withHost( (String)obj.getMember("serverHost"))
-					.withPort(Integer.parseInt((String)obj.getMember("serverPort")))
-					.withUsername( (String)obj.getMember("serverUsername"))
-					.withPassword((String) obj.getMember("serverPassword"))
+		Server srv = new Server.Builder()
+				.withName( (String)obj.getMember("serverName"))
+				.withHost( (String)obj.getMember("serverHost"))
+				.withPort(Integer.parseInt((String)obj.getMember("serverPort")))
+				.withUsername( (String)obj.getMember("serverUsername"))
+				.withPassword((String) obj.getMember("serverPassword"))
 					.build();
 		om.addNewServer(srv);
 	}
