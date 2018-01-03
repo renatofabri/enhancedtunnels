@@ -2,6 +2,7 @@ package view;
 
 import java.util.List;
 
+import controller.JsOperations;
 import controller.OperationManager;
 import model.Server;
 import model.Tunnel;
@@ -29,7 +30,7 @@ public class AppWindow extends Application {
     @Override
     public void start(Stage primaryStage) {
         
-        primaryStage.setTitle("EnhancedTunnels: a tunneling assister");
+        primaryStage.setTitle("EnhancedTunnels: a tunneling assistant");
   
 
         Scene appScene = new Scene(new Browser(),1024,600);
@@ -73,14 +74,14 @@ class Browser extends Region {
         					
         					// app
         					JSObject window = (JSObject) webEngine.executeScript("window");
-        					window.setMember("app", new JavaApplication());
+        					window.setMember("app", new JsOperations());
         				}
         			}
         		}
         );
         
         JSObject window = (JSObject) webEngine.executeScript("window");
-        window.setMember("app", new JavaApplication());
+        window.setMember("app", new JsOperations());
 
         // handle alert() from JS
         webEngine.setOnAlert(
@@ -111,52 +112,4 @@ class Browser extends Region {
         return 600;
     }
     
-    public class JavaApplication {
-    	OperationManager om = new OperationManager();
-    	
-    	public void callFromJavascript(String msg) {
-    		System.out.println("callFromJavascript: " + msg);
-    	}
-  
-    	public void saveServer(JSObject obj) {
-
-    		Server srv = new Server.Builder()
-    				.withName( (String)obj.getMember("serverName"))
-    				.withHost( (String)obj.getMember("serverHost"))
-    				.withPort(Integer.parseInt((String)obj.getMember("serverPort")))
-    				.withUsername( (String)obj.getMember("serverUsername"))
-    				.withPassword((String) obj.getMember("serverPassword"))
-    				.build();
-    		om.addNewServer(srv);
-    	}
-
-    	public void saveTunnel(JSObject obj) {
-    		
-    		Tunnel tnl = new Tunnel.Builder()
-    				.withName((String)obj.getMember("tunnelName"))
-    				.inPort(Integer.parseInt((String)obj.getMember("tunnelLocalPort")))
-    				.toHost((String)obj.getMember("tunnelRemoteHost"))
-    				.toPort(Integer.parseInt((String)obj.getMember("tunnelRemotePort")))
-    				.withDescription((String)obj.getMember("tunnelDescription"))
-    				.inServer(Long.parseLong((String)obj.getMember("tunnelParentServer")))
-    				.build();
-    		om.addNewTunnel(tnl);
-    	}
-
-    	public void deleteServer(String id) {
-    		Long srvId = Long.parseLong(id);
-    		om.removeServer(srvId);
-    	}
-    	
-    	public void deleteTunnel(String id) {
-    		Long tnlId = Long.parseLong(id);
-    		om.removeTunnel(tnlId);
-    	}
-
-    	public void launchServer(String id) {
-    		Long srvId = Long.parseLong(id);
-    		Server srv = om.getServer(srvId);
-    		om.execute(om.getStringForPuTTY(srv));
-    	}
-    }
 }
