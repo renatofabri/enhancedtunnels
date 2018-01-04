@@ -8,10 +8,9 @@ public class LogManager {
 	 * 2 = info
 	 * 1 = debug
 	 */
-	private static final int LOG_LEVEL = 1;
 
 	private void logMessage(int level, String msg) {
-		if (level >= LOG_LEVEL)
+		if (level >= Settings.getInstance().getLogLevel())
 			System.out.println(msg);
 	}
 

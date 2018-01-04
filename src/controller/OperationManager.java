@@ -107,11 +107,10 @@ public class OperationManager {
 	 * Accessing and executing commands in CMD
 	 */
 	public void execute(String param) {
-		String putty_parent_folder = "C:\\Users\\RENATOS\\Downloads\\Shared\\Tef Arg Tools\\Tunneling"; // location of putty.exe
 		
 		try {
 			
-			String command = "cmd /c cd " + putty_parent_folder + "&& start putty.exe " + param;
+			String command = "cmd /c cd " + Settings.getInstance().getPuttyLocation() + "&& start putty.exe " + param;
 			log.info(command);
 			Process p = Runtime.getRuntime().exec(command);
 			log.info(String.format("Return code: %s", p.waitFor()));
