@@ -1,5 +1,7 @@
 package controller;
 
+import model.Settings;
+
 public class LogManager {
 	
 	/**

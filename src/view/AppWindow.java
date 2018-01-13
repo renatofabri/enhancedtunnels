@@ -5,7 +5,6 @@ import java.util.List;
 import controller.JsOperations;
 import controller.OperationManager;
 import model.Server;
-import model.Tunnel;
 import netscape.javascript.JSObject;
 import javafx.application.Application;
 import javafx.event.EventHandler;
@@ -48,6 +47,7 @@ class Browser extends Region {
 	public Browser() {
 		
 //		getStyleClass().add("browser");
+		browser.setContextMenuEnabled(false);
 		
 		final OperationManager om = new OperationManager();
 

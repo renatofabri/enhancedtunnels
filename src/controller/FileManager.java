@@ -13,27 +13,29 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 
+import model.Settings;
 import wrapper.ServerList;
 import wrapper.TunnelList;
 
-public class XmlManager {
+public class FileManager {
 	
 	
 
-	private static XmlManager instance = null;
+	private static FileManager instance = null;
 
 	public static final Path ROOT_FOLDER = Paths.get(new File("").getAbsolutePath(), "data");
 	public static final String FILE_SERVER = "servers.properties";
 	public static final String FILE_TUNNELS = "tunnels.properties";
+	public static final String FILE_SETTINGS = "settings.properties";
 
 
-	private XmlManager() {
+	private FileManager() {
 		
 	}
 
-	public static XmlManager getInstance() {
+	public static FileManager getInstance() {
 		if (instance == null) {
-			instance = new XmlManager();
+			instance = new FileManager();
 		}
 		return instance;
 	}
@@ -45,6 +47,10 @@ public class XmlManager {
 
 	private File getTunnelFile() {
 		return getFile(FILE_TUNNELS);
+	}
+
+	private File getSettingsFile() {
+		return getFile(FILE_SETTINGS);
 	}
 
 	private File getFile(String filename) {
@@ -79,7 +85,13 @@ public class XmlManager {
 		convertToXML(tunnelList, getTunnelFile());
 	}
 
+	public void retrieveSettings() {
+		Settings.updateInstance((Settings) convertToClass(Settings.getInstance(), getSettingsFile()));
+	}
 
+	public void saveSettings(Settings st) {
+		convertToXML(st, getSettingsFile());
+	}
 
 	public static void convertToXML(Object object, File file) {
 

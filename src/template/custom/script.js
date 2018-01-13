@@ -3,6 +3,7 @@
 var serverListTemplate = '\
 <!-- server="SERVER_ID" -->\
 <tr server="SERVER_ID" class="app-server-row">\
+  <td><button onclick="launchServerAction(SERVER_ID)" class="btn btn-primary"><span class="glyphicon glyphicon-play"></span></button></td>\
   <td>SERVER_NAME</td>\
   <td>SERVER_HOST</td>\
   <td>SERVER_PORT</td>\
@@ -15,7 +16,7 @@ var serverCommandsTemplate = '\
 <tr id="cmdSrvSERVER_ID" class="app-expanded-server app-server-commands" style="display: none;">\
   <td colspan=4>\
     <div class="pull-left">\
-      <button onclick="launchServerAction(SERVER_ID)" class="btn btn-primary"><span class="glyphicon glyphicon-play"></span> Launch</button>\
+	<button onclick="launchServerAction(SERVER_ID)" class="btn btn-primary"><span class="glyphicon glyphicon-play"></span></button>\
       <button onclick="toggleTunnelForm(SERVER_ID)" class="btn btn-default"><span class="glyphicon glyphicon-plus"></span> Tunnel</button>\
     </div>\
     <div class="pull-right">\
@@ -66,15 +67,15 @@ function replaceAll(str, find, replace) {
 
 function addServer(json) {
 	var obj = JSON.parse(json);
+
+	var serverListDOM = document.getElementById("app-server-list");
+
 	//code to add server row
-	var serverRow = createServerRow(obj);
-    $("#app-server-list").append(serverRow);
+	serverListDOM.insertAdjacentHTML('beforeend', createServerRow(obj));
 	//code to add command row
-	var commandRow = createCommandRow(obj);
-    $("#app-server-list").append(commandRow);
+	serverListDOM.insertAdjacentHTML('beforeend', createCommandRow(obj));
 	//code to add tunnel row
-	var tunnelRow = createTunnelRow(obj);
-	$("#app-server-list").append(tunnelRow);
+	serverListDOM.insertAdjacentHTML('beforeend', createTunnelRow(obj));
 }
 
 function createServerRow(server) {

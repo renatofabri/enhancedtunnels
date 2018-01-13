@@ -5,6 +5,7 @@ import java.util.List;
 import wrapper.ServerList;
 import wrapper.TunnelList;
 import model.Server;
+import model.Settings;
 import model.Tunnel;
 
 /**

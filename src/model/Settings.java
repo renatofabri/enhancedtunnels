@@ -1,15 +1,22 @@
-package controller;
+package model;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement
 public class Settings {
 
 	private static Settings instance = null;
 
 	// someday this will be loaded from file
-	private static final int LOG_LEVEL = 1;
-	private static final String PUTTY_LOCATION = "C:\\eclipse";
+	private final int LOG_LEVEL = 1;
+	private final String PUTTY_LOCATION = "C:\\eclipse";
 	
 	private Settings() {
 		
+	}
+
+	public static void updateInstance(Settings st) {
+		instance = st;
 	}
 
 	public static Settings getInstance() {

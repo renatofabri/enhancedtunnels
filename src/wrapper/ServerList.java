@@ -10,7 +10,7 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import controller.LogManager;
-import controller.XmlManager;
+import controller.FileManager;
 import model.Server;
 import model.Tunnel;
 
@@ -59,7 +59,7 @@ public class ServerList {
 	 * This method refreshes the data in this Singleton
 	 */
 	private void refresh() {
-		XmlManager.getInstance().retrieveServers(); 
+		FileManager.getInstance().retrieveServers(); 
 	}
 
 	public void add (Server server) {
@@ -81,7 +81,7 @@ public class ServerList {
 	 */
 	public void save () {
 		log.info("Saving to file");
-		XmlManager.getInstance().saveServers(this);
+		FileManager.getInstance().saveServers(this);
 	}
 
 	/**

@@ -10,7 +10,7 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import controller.LogManager;
-import controller.XmlManager;
+import controller.FileManager;
 import model.Tunnel;
 
 /**
@@ -51,7 +51,7 @@ public class TunnelList {
 	 * This method refreshes the data in this Singleton
 	 */
 	private void refresh() {
-		XmlManager.getInstance().retrieveTunnels(); 
+		FileManager.getInstance().retrieveTunnels(); 
 	}
 
 	public void add (Tunnel tunnel) {
@@ -72,7 +72,7 @@ public class TunnelList {
 	 */
 	public void save () {
 		log.info("Saving to file");
-		XmlManager.getInstance().saveTunnels(this);
+		FileManager.getInstance().saveTunnels(this);
 	}
 
 	/**
