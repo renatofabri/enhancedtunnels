@@ -123,4 +123,11 @@ public class OperationManager {
 		}
 	}
 
+	/**
+	 * Check if port is available; if not, launch required server first
+	 */
+	public void checkAndExecute(String param) {
+		
+	}
+
 }
