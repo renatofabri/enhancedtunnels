@@ -3,6 +3,10 @@ body {
     color: white;
 }
 
+.modal {
+    color: black;
+}
+
 .app-window {
 	height: 100%;
     height: 800px;
@@ -135,4 +139,44 @@ body {
 
 .app-server-commands > td {
 	background-color: #333333 !important;
+}
+
+.app-server-table > div {
+	font-size: 1.2em;
+	padding: 3px;
+	margin: 3px;
+	background-color: #222222;
+}
+.app-server-table .play {
+	padding-left: 0;
+	margin-top: -2px;
+}
+.app-server-table .commands {
+	padding-right: 0;
+}
+.app-server-quick-access div:hover {
+	background-color: #444444;
+	cursor: default;
+}
+
+.app-tunnel-quick-access ul > li {
+	width: 150px;
+	float: left;
+	background-color: #222222;
+	padding: 3px;
+	margin: 2px;
+}
+
+.app-tunnel-quick-access ul > .playable :hover {
+	cursor: pointer;
+}
+.app-tunnel-quick-access ul > li:hover {
+	background-color: #444444;
+	cursor: default;
+}
+
+.app-tunnel-quick-access ul > li > span {
+	display: block;
+	overflow: hidden;
+	text-overflow: ellipsis;
 }

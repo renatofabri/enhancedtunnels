@@ -22,6 +22,11 @@ $("body").on('click', '.app-server-row', function() {
     }
 });
 
+$("#tunnelIsLaunchable").change(function(){
+	console.log(this.checked);
+	$("#launchableCredentials").toggle(this.checked);
+});
+
 // server button behavior
 function toggleServerForm() {
 	var isOpen = $("#app-server-operation").attr('isOpen');

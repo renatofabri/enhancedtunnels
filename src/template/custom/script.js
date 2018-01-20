@@ -3,12 +3,37 @@
 var serverListTemplate = '\
 <!-- server="SERVER_ID" -->\
 <tr server="SERVER_ID" class="app-server-row">\
-  <td><button onclick="launchServerAction(SERVER_ID)" class="btn btn-primary"><span class="glyphicon glyphicon-play"></span></button></td>\
+  <td><button onclick="launchServerAction(SERVER_ID)" class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-play"></span></button></td>\
   <td>SERVER_NAME</td>\
   <td>SERVER_HOST</td>\
   <td>SERVER_PORT</td>\
   <td>SERVER_USERNAME</td>\
 </tr>';
+
+var newServerListTemplate = '\
+	<div class="row">\
+		<div id="serverSERVER_ID">\
+			<div class="col-md-1 play">\
+				<button onclick="launchServerAction(SERVER_ID)" class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-play"></span></button>\
+			</div>\
+			<div class="col-md-4">\
+				SERVER_NAME\
+			</div>\
+			<div class="col-md-2">\
+				SERVER_USERNAME\
+			</div>\
+			<div class="col-md-2">\
+				SERVER_HOST\
+			</div>\
+			<div class="col-md-1">\
+				SERVER_PORT\
+			</div>\
+			<div class="col-md-2 commands">\
+				<button onclick="toggleTunnelForm(SERVER_ID)" class="btn btn-default btn-xs" style="margin-top: -4px;"><span class="glyphicon glyphicon-plus-sign"></span> tunnel</button>\
+				<button onclick="deleteServerAction(SERVER_ID)" class="btn btn-danger btn-xs pull-right" style="margin-top: 1px;"><span class="glyphicon glyphicon-trash"></span></button>\
+			</div>\
+		</div>\
+	</div>';
 
 // SERVER_ID
 // Commands row to be added after each server
@@ -68,18 +93,18 @@ function replaceAll(str, find, replace) {
 function addServer(json) {
 	var obj = JSON.parse(json);
 
-	var serverListDOM = document.getElementById("app-server-list");
+	var serverListDOM = document.getElementById("app-main-view");
 
 	//code to add server row
 	serverListDOM.insertAdjacentHTML('beforeend', createServerRow(obj));
 	//code to add command row
-	serverListDOM.insertAdjacentHTML('beforeend', createCommandRow(obj));
+//	serverListDOM.insertAdjacentHTML('beforeend', createCommandRow(obj));
 	//code to add tunnel row
-	serverListDOM.insertAdjacentHTML('beforeend', createTunnelRow(obj));
+//	serverListDOM.insertAdjacentHTML('beforeend', createTunnelRow(obj));
 }
 
 function createServerRow(server) {
-	var serverRow = replaceAll(serverListTemplate, "SERVER_ID", server.id);
+	var serverRow = replaceAll(newServerListTemplate, "SERVER_ID", server.id);
 	serverRow = serverRow.replace('SERVER_NAME', server.displayName);
 	serverRow = serverRow.replace('SERVER_USERNAME', server.username);
 	serverRow = serverRow.replace('SERVER_HOST', server.host);

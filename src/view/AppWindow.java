@@ -30,7 +30,8 @@ public class AppWindow extends Application {
     public void start(Stage primaryStage) {
         
         primaryStage.setTitle("EnhancedTunnels: a tunneling assistant");
-  
+
+        
 
         Scene appScene = new Scene(new Browser(),1024,600);
         
@@ -47,7 +48,7 @@ class Browser extends Region {
 	public Browser() {
 		
 //		getStyleClass().add("browser");
-		browser.setContextMenuEnabled(false);
+//		browser.setContextMenuEnabled(false);
 		
 		final OperationManager om = new OperationManager();
 

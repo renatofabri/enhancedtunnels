@@ -39,7 +39,7 @@
                         <div class="row">
                             <h2>
                                 Click in a server to view details,
-                                <button id="startAllServers" class="btn btn-primary" onclick="toggleServerForm()">Add Server
+                                <button type="button" data-toggle="modal" data-target="#app-server-modal" id="startAllServers" class="btn btn-primary">Add Server
                                 </button>
                                 or 
                                 <button id="startAllServers" class="btn btn-primary" onclick="callJavaFX('launch all')">Launch All Servers
@@ -48,144 +48,166 @@
                             </h2>
                         </div>
                         <!-- server operation div -->
-                   		<div id="app-server-operation" class="row" style="display: none;">
-							<h3>Create Server</h3>
-							<form id="serverForm">
-								<div class="row">
-									<div class="form-group col-md-5">
-										<label for="serverName">Display name</label>
-										<input type="text" class="form-control" id="serverName" placeholder="" required/>
-									</div>
-									<div class="form-group col-md-5">
-										<label for="serverHost">Host</label>
-										<input type="text" class="form-control" id="serverHost" placeholder="" required/>
-									</div>
-									<div class="form-group col-md-2">
-										<label for="serverPort">Port</label>
-										<input type="text" class="form-control" id="serverPort" placeholder=""/>
-									</div>
-								</div>
-								<div class="row">
-									<div class="form-group col-md-4">
-										<label for="serverUsername">Username</label>
-										<input type="text" class="form-control" id="serverUsername" placeholder="" required/>
-									</div>
-									<div class="form-group col-md-4">
-										<label for="serverPassword">Password</label>
-										<input type="text" class="form-control" id="serverPassword" placeholder="" required/>
-									</div>
-									<div class="col-md-4">
-										<div style="margin-top: 25px">
-											<button onclick="toggleServerForm()" class="btn btn-default pull-right">Cancel</button>
-											<button onclick="saveServerForm()" class="btn btn-primary pull-right" style="margin-right: 10px;">Create</button>
-										</div>
-									</div>
-								</div>
-							</form>
-						</div>
-                        <!-- tunnel operation div -->
-                   		<div id="app-tunnel-operation" class="row" style="display: none;">
-							<h3>Create Tunnel</h3>
-							<form id="tunnelForm">
-								<div class="row">
-									<div class="form-group col-md-5">
-										<label for="tunnelName">Tunnel display name</label>
-										<input type="text" class="form-control" id="tunnelName" placeholder="" required/>
-										<input type="hidden" id="tunnelServerId" placeholder="" required/>
-									</div>
-								</div>
-								<div class="row">
-									<div class="form-group col-md-2">
-										<label for="tunnelLocalPort">Local port</label>
-										<input type="text" class="form-control" id="tunnelLocalPort" placeholder=""/>
-									</div>
-									<div class="form-group col-md-5">
-										<label for="tunnelRemoteHost"> Remote host</label>
-										<input type="text" class="form-control" id="tunnelRemoteHost" placeholder="" required/>
-									</div>
-									<div class="form-group col-md-2">
-										<label for="tunnelRemotePort">Remote port</label>
-										<input type="text" class="form-control" id="tunnelRemotePort" placeholder=""/>
-									</div>
-								</div>
-								<div class="row">
-									<div class="form-group col-md-1">
-										<label for="tunnelIsLaunchable">Launchable?</label>
-										<input type="checkbox" class="" id="tunnelIsLaunchable" value="Launchable?">
-									</div>
-								</div>
-								<div class="row">
-									<div class="form-group col-md-4">
-										<label for="tunnelUsername">Username</label>
-										<input type="text" class="form-control" id="tunnelUsername" placeholder="" required/>
-									</div>
-									<div class="form-group col-md-4">
-										<label for="tunnelPassword">Password</label>
-										<input type="text" class="form-control" id="tunnelPassword" placeholder="" required/>
-									</div>
-								</div>
-								<div class="row">
-									<div class="form-group col-md-4">
-										<label for="tunnelDescription">Short description</label>
-										<input type="text" class="form-control" id="tunnelDescription" placeholder="" required/>
-									</div>
-									<div class="col-md-5">
-										<div style="margin-top: 25px">
-											<button onclick="toggleTunnelForm()" class="btn btn-default pull-right">Cancel</button>
-											<button onclick="saveTunnelForm()" class="btn btn-primary pull-right" style="margin-right: 10px;">Create</button>
-										</div>
-									</div>
-								</div>
-							</form>
-						</div>
+                        <div class="modal fade" id="app-server-modal" tabindex="-1" role="dialog" aria-labelledby="server-modal-title">
+                        	<div class="modal-dialog" role="document">
+                        		<div class="modal-content">
+                        			<div class="modal-header">
+                        				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        					<span aria-hidden="true">&times;</span>
+                        				</button>
+                        				<h4 class="modal-title" id="server-modal-title">Server</h4>
+                        			</div>
+                        			<div class="modal-body">
+										<form id="serverForm">
+											<div class="row">
+												<div class="form-group col-md-5">
+													<label for="serverName">Display name</label>
+													<input type="text" class="form-control" id="serverName" placeholder="" required/>
+												</div>
+												<div class="form-group col-md-5">
+													<label for="serverHost">Host</label>
+													<input type="text" class="form-control" id="serverHost" placeholder="" required/>
+												</div>
+												<div class="form-group col-md-2">
+													<label for="serverPort">Port</label>
+													<input type="text" class="form-control" id="serverPort" placeholder=""/>
+												</div>
+											</div>
+											<div class="row">
+												<div class="form-group col-md-4">
+													<label for="serverUsername">Username</label>
+													<input type="text" class="form-control" id="serverUsername" placeholder="" required/>
+												</div>
+												<div class="form-group col-md-4">
+													<label for="serverPassword">Password</label>
+													<input type="text" class="form-control" id="serverPassword" placeholder="" required/>
+												</div>
+												<div class="col-md-4">
+													<div style="margin-top: 25px">
+													</div>
+												</div>
+											</div>
+										</form>
+                        			</div>
+                        			<div class="modal-footer">
+										<button data-dismiss="modal" class="btn btn-default">Cancel</button>
+										<button onclick="saveServerForm()" class="btn btn-primary">Create</button>
+                        			</div>
+                        		</div>
+                        	</div>
+                        </div>
+
+                        <!-- tunnel operation modal -->
+                        <div class="modal fade" id="app-tunnel-modal" tabindex="-1" role="dialog" aria-labelledby="tunnel-modal-title">
+                        	<div class="modal-dialog" role="document">
+                        		<div class="modal-content">
+                        			<div class="modal-header">
+                        				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        					<span aria-hidden="true">&times;</span>
+                        				</button>
+                        				<h4 class="modal-title" id="tunnel-modal-title">Tunnel</h4>
+                        			</div>
+                        			<div class="modal-body">
+                        				<form id="tunnelForm">
+											<div class="row">
+												<div class="form-group col-md-11">
+													<label for="tunnelName">Tunnel display name</label>
+													<input type="text" class="form-control" id="tunnelName" placeholder="" required/>
+													<input type="hidden" id="tunnelServerId" placeholder="" required/>
+												</div>
+											</div>
+											<div class="row">
+												<div class="form-group col-md-3">
+													<label for="tunnelLocalPort">Local port</label>
+													<input type="text" class="form-control" id="tunnelLocalPort" placeholder=""/>
+												</div>
+												<div class="form-group col-md-5">
+													<label for="tunnelRemoteHost"> Remote host</label>
+													<input type="text" class="form-control" id="tunnelRemoteHost" placeholder="" required/>
+												</div>
+												<div class="form-group col-md-3">
+													<label for="tunnelRemotePort">Remote port</label>
+													<input type="text" class="form-control" id="tunnelRemotePort" placeholder=""/>
+												</div>
+											</div>
+											<div class="row">
+												<div class="form-group col-md-1">
+													<label for="tunnelIsLaunchable">Launchable?</label>
+													<input type="checkbox" class="" id="tunnelIsLaunchable" value="Launchable?">
+												</div>
+											</div>
+											<div class="row" id="launchableCredentials" style="display: none;">
+												<div class="form-group col-md-4">
+													<label for="tunnelUsername">Username</label>
+													<input type="text" class="form-control" id="tunnelUsername" placeholder="" required/>
+												</div>
+												<div class="form-group col-md-4">
+													<label for="tunnelPassword">Password</label>
+													<input type="text" class="form-control" id="tunnelPassword" placeholder="" required/>
+												</div>
+											</div>
+											<div class="row">
+							                    <div class="form-group col-md-11">
+							                        <label for="tunnelDescription">Short description</label>
+							                        <input type="text" class="form-control" id="tunnelDescription" placeholder="" required/>
+							                    </div>
+							                </div>
+										</form>
+                        			</div>
+                        			<div class="modal-footer">
+                        				<button data-dismiss="modal" class="btn btn-default">Cancel</button>
+										<button onclick="saveTunnelForm()" class="btn btn-primary">Create</button>
+                        			</div>
+                        		</div>
+                        	</div>
+                        </div>
+
 						<!-- server table div -->
                         <div id="app-main-view" class="row app-server-table">
                         	<div class="row">
-                        		<div class="col-md-1">
-                        			<button class="btn btn-primary"><span class="glyphicon glyphicon-play"></span></button>
-                        		</div>
-                        		<div class="col-md-3">
-                        			Server name
-                        		</div>
-                        		<div class="col-md-2">
-                        			username
-                        		</div>
-                        		<div class="col-md-3">
-                        			host
-                        		</div>
-                        		<div class="col-md-1">
-                        			port
-                        		</div>
-                        		<div class="col-md-1">
-                        			comm
-                        		</div>
+                       			<div id="server1">
+	                        		<div class="col-md-1 play">
+	                        			<button class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-play"></span></button>
+	                        		</div>
+	                        		<div class="col-md-4">
+	                        			Server name
+	                        		</div>
+	                        		<div class="col-md-2">
+	                        			username
+	                        		</div>
+	                        		<div class="col-md-2">
+	                        			host
+	                        		</div>
+	                        		<div class="col-md-1">
+	                        			port
+	                        		</div>
+	                        		<div class="col-md-2 commands">
+	                        			<button type="button" data-toggle="modal" data-target="#app-tunnel-modal" class="btn btn-default btn-xs" style="margin-top: -3px;"><span class="glyphicon glyphicon-plus-sign"></span> tunnel</button>
+	                        			<button onclick="deleteServerAction(1)" class="btn btn-danger btn-xs pull-right" style="margin-top: 0px;"><span class="glyphicon glyphicon-trash"></span></button>
+	                        		</div>
+	                        	</div>
                         	</div>
-<!--                             <table class=""> -->
-<!--                                 <tbody id="app-server-list"> -->
-                                    
-<!--                                 </tbody> -->
-<!--                             </table> -->
                         </div>
-                        <div class="row app-tunnel-table">
-                        	<h4>Tunnels</h4>
+                        <div class="row app-tunnel-quick-access">
+                        	<h4>Quick Access</h4>
                         	<ul>
-                        		<li>
-                        			<span class="glyphicon glyphicon-play"></span>
-                        			<span>Name</span>
+                        		<li class="playable">
+                        			<span><span class="glyphicon glyphicon-play"></span> Name</span>
                         			<span>aaabbb00</span>
-                        			<span>255.255.255.255:33000</span>
+                        			<span>33000</span>
+                        			<span>On parent</span>
                         		</li>
-                    		     <li>
-                        			<span class="glyphicon glyphicon-play"></span>
-                        			<span>Name</span>
-                        			<span>aaabbb00</span>
-                        			<span>255.255.255.255:33000</span>
+                    		     <li class="playable">
+                        			<span><span class="glyphicon glyphicon-play"></span> Name</span>
+                        			<span>aaabbb00aaaaaaaaaaaaaa</span>
+                        			<span>33000</span>
+                        			<span>On parent</span>
                         		</li>
                     		    <li>
-                        			<span class="glyphicon glyphicon-play"></span>
                         			<span>Name</span>
                         			<span>aaabbb00</span>
-                        			<span>255.255.255.255:33000</span>
+                        			<span>33000</span>
+                        			<span>On parent</span>
                         		</li>
                         	</ul>
                         </div>
@@ -195,6 +217,7 @@
         </div>
 
         <script src="js/jquery-3.2.1.min.js" type="application/javascript"></script>
+        <script src="js/bootstrap.min.js" type="application/javascript"></script>
         <script src="custom/events.js" type="application/javascript"></script>
         <script src="custom/script.js" type="application/javascript"></script>
         <script type="application/javascript">
@@ -250,6 +273,8 @@
         	    }
 
         	    app.saveTunnel(obj);
+
+        	    $('#app-tunnel-modal').modal('hide');
 
         	    location.reload();
         	}
