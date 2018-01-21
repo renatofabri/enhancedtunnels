@@ -27,30 +27,8 @@ $("#tunnelIsLaunchable").change(function(){
 	$("#launchableCredentials").toggle(this.checked);
 });
 
-// server button behavior
-function toggleServerForm() {
-	var isOpen = $("#app-server-operation").attr('isOpen');
-	if (typeof isOpen !== typeof undefined && isOpen !== false) {
-		$("#app-server-operation").hide().removeAttr('isOpen');
-		$("#app-main-view").show();
-	}
-	else {
-		$("#app-server-operation").show().attr('isOpen', 'true');
-		$("#app-main-view").hide();
-	}
-}
-
 // tunnel button behavior
 function toggleTunnelForm(tnlId) {
-	var isOpen = $("#app-tunnel-operation").attr('isOpen');
-	if (typeof isOpen !== typeof undefined && isOpen !== false) {
-		$("#app-tunnel-operation").hide().removeAttr('isOpen');
-		$("#tunnelServerId").attr('value', null);
-		$("#app-main-view").show();
-	}
-	else {
-		$("#app-tunnel-operation").show().attr('isOpen', 'true');
-		$("#tunnelServerId").attr('value', tnlId);
-		$("#app-main-view").hide();
-	}
+	$("#tunnelServerId").attr('value', tnlId);
+	$('#app-tunnel-modal').modal('show');
 }
