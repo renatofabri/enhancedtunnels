@@ -16,7 +16,7 @@ var newServerListTemplate = '\
 			<div class="col-md-1 play">\
 				<button onclick="launchServerAction(SERVER_ID)" class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-play"></span></button>\
 			</div>\
-			<div class="col-md-4">\
+			<div id="serverNameSERVER_ID" class="col-md-4">\
 				SERVER_NAME\
 			</div>\
 			<div class="col-md-2">\
@@ -34,6 +34,9 @@ var newServerListTemplate = '\
 			</div>\
 		</div>\
 	</div>';
+
+var newTunnelListTemplate = '\
+';
 
 // SERVER_ID
 // Commands row to be added after each server

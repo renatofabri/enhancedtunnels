@@ -32,3 +32,15 @@ function toggleTunnelForm(tnlId) {
 	$("#tunnelServerId").attr('value', tnlId);
 	$('#app-tunnel-modal').modal('show');
 }
+
+function loadTunnelsModal(srvId) {
+    $('.serverXtunnels').hide();
+    $('#server'+srvId+'tunnels').show();
+    // someday I'll convert all jquery here into pure js :)
+    var serverName = document.getElementById('serverName'+srvId).innerHTML;
+    var tunnelModalTitleElement = document.getElementById('app-tunnel-list-modal-title');
+    var title = tunnelModalTitleElement.innerHTML;
+    title = title.replace('{SERVER_NAME}', serverName);
+    tunnelModalTitleElement.innerHTML = title;
+    $('#app-tunnel-list-modal').modal('show');
+}
