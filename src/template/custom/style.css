@@ -7,6 +7,16 @@ body {
     color: black;
 }
 
+.serverXtunnels > .row {
+    margin-top: 3px;
+    margin-bottom: 3px;
+}
+
+.serverXtunnels > .row:hover {
+    background-color: #D6D6D6;
+    cursor: default;
+}
+
 .app-window {
 	height: 100%;
     height: 800px;
