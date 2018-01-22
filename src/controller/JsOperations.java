@@ -34,6 +34,9 @@ public class JsOperations {
 				.toPort(Integer.parseInt((String)obj.getMember("tunnelRemotePort")))
 				.withDescription((String)obj.getMember("tunnelDescription"))
 				.inServer(Long.parseLong((String)obj.getMember("tunnelParentServer")))
+				.launchable(Boolean.parseBoolean((String) obj.getMember("tunnelLaunchable")))
+				.loggedAs((String) obj.getMember("tunnelUsername"))
+				.withPassword((String) obj.getMember("tunnelPassword"))
 				.build();
 		om.addNewTunnel(tnl);
 	}

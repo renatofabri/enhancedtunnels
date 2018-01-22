@@ -10,7 +10,7 @@ import javax.xml.bind.annotation.XmlType;
 import wrapper.TunnelList;
 
 @XmlRootElement
-@XmlType(propOrder={"id","displayName", "localPort", "remoteHost", "remotePort", "description", "parentServer"})
+@XmlType(propOrder={"id","displayName", "localPort", "remoteHost", "remotePort", "description", "parentServer", "username", "password"})
 public class Tunnel {
 
 	public static final int DEFAULT_PORT = 22;
@@ -22,6 +22,9 @@ public class Tunnel {
 	private int remotePort;
 	private String description;
 	private long parentServer;
+	private boolean launchable;
+	private String username;
+	private String password;
 
 	private Tunnel () {
 		
@@ -43,7 +46,10 @@ public class Tunnel {
 				+ "\"remoteHost\": \"" + this.remoteHost + "\", "
 				+ "\"remotePort\": " + this.remotePort + ", "
 				+ "\"description\": \"" + this.description + "\", "
-				+ "\"parentServer\": " + this.parentServer + "}";
+				+ "\"parentServer\": " + this.parentServer + ", "
+				+ "\"launchable\": \"" + this.isLaunchable() + "\", "
+				+ "\"username\": \"" + this.getUsername() + "\", "
+				+ "\"password\": \"" + this.getPassword() + "\"}";
 		return jsonFormat;
 	}
 	
@@ -56,6 +62,9 @@ public class Tunnel {
 		private int remotePort;
 		private String description;
 		private long parentServer;
+		private boolean launchable = false;
+		private String username;
+		private String password;
 
 		public Builder(long id) {
 			this.id = id;
@@ -100,6 +109,21 @@ public class Tunnel {
 			return this;
 		}
 
+		public Builder launchable(boolean launchable) {
+			this.launchable = launchable;
+			return this;
+		}
+
+		public Builder loggedAs (String username) {
+			this.username = username;
+			return this;
+		}
+
+		public Builder withPassword (String password) {
+			this.password = password;
+			return this;
+		}
+
 		public Tunnel build () {
 			Tunnel tunnel = new Tunnel();
 			if (this.id == 0) {
@@ -111,8 +135,13 @@ public class Tunnel {
 			tunnel.remoteHost = this.remoteHost;
 			tunnel.remotePort = this.remotePort;
 			tunnel.description = this.description;
-			
+
 			tunnel.parentServer = this.parentServer;
+
+			tunnel.launchable = this.launchable;
+			tunnel.username = this.username;
+			tunnel.password = this.password;
+
 			return tunnel;
 		}
 
@@ -157,6 +186,30 @@ public class Tunnel {
 		}
 		public void setParentServer(long parentServer) {
 			this.parentServer = parentServer;
+		}
+
+		public boolean isLaunchable() {
+			return launchable;
+		}
+
+		public void setLaunchable(boolean isLaunchable) {
+			this.launchable = isLaunchable;
+		}
+
+		public String getUsername() {
+			return username;
+		}
+
+		public void setUsername(String username) {
+			this.username = username;
+		}
+
+		public String getPassword() {
+			return password;
+		}
+
+		public void setPassword(String password) {
+			this.password = password;
 		}
 	}
 
@@ -227,5 +280,32 @@ public class Tunnel {
 	@XmlAttribute
 	public void setParentServer(long parentServer) {
 		this.parentServer = parentServer;
+	}
+
+	public boolean isLaunchable() {
+		return launchable;
+	}
+
+	@XmlAttribute
+	public void setLaunchable(boolean isLaunchable) {
+		this.launchable = isLaunchable;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	@XmlElement
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	@XmlElement
+	public void setPassword(String password) {
+		this.password = password;
 	}
 }

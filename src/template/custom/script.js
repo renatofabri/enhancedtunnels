@@ -71,12 +71,10 @@ function replaceAll(str, find, replace) {
 function addServer(json) {
 	var obj = JSON.parse(json);
 
-	var serverListDOM = document.getElementById("app-main-view");
-
 	//code to add server row
+    var serverListDOM = document.getElementById("app-main-view");
 	serverListDOM.insertAdjacentHTML('beforeend', createServerRow(obj));
-	//code to add command row
-//	serverListDOM.insertAdjacentHTML('beforeend', createCommandRow(obj));
+
 	//code to add tunnel row
     var tunnelListDOM = document.getElementById("app-tunnel-list");
 	tunnelListDOM.insertAdjacentHTML('beforeend', createTunnelRow(obj));
@@ -105,7 +103,9 @@ function createTunnelTable(server) {
     for (var i = 0; i < server.tunnels.length; i++) {
 
 //        if tunnel is playable, add to quicklist
-        quickAccessListDOM.insertAdjacentHTML('beforeend', addQuickAccessItem(server.displayName, server.tunnels[i]));
+        if (server.tunnels[i].launchable == 'true') {
+            quickAccessListDOM.insertAdjacentHTML('beforeend', addQuickAccessItem(server.displayName, server.tunnels[i]));
+        }
 
         var updatedRow = newTunnelRowTemplate;
         console.log(i);
@@ -116,7 +116,7 @@ function createTunnelTable(server) {
         updatedRow = updatedRow.replace('LOCAL_PORT', server.tunnels[i].localPort);
         updatedRow = updatedRow.replace('REMOTE_HOST', server.tunnels[i].remoteHost);
         updatedRow = updatedRow.replace('REMOTE_PORT', server.tunnels[i].remotePort);
-        updatedRow = updatedRow.replace('TUNNEL_USERNAME', 'mock');
+        updatedRow = updatedRow.replace('TUNNEL_USERNAME', ((server.tunnels[i].username && server.tunnels[i].username != 'null') ? server.tunnels[i].username : '-'));
         updatedRow = updatedRow.replace('TUNNEL_DESCRIPTION', server.tunnels[i].description);
         table = table.concat(updatedRow);
     }
@@ -135,7 +135,7 @@ function addQuickAccessItem(serverName, tunnel) {
     var qckItem = quickAccessTemplate.replace('SERVER_NAME', serverName);
     qckItem = qckItem.replace('TUNNEL_ID', tunnel.id);
     qckItem = qckItem.replace('TUNNEL_NAME', tunnel.displayName);
-    qckItem = qckItem.replace('TUNNEL_USERNAME', 'mock');
+    qckItem = qckItem.replace('TUNNEL_USERNAME', tunnel.username);
     qckItem = qckItem.replace('LOCAL_PORT', tunnel.localPort);
     return qckItem;
 }

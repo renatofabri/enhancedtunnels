@@ -29,7 +29,7 @@ $("body").on('click', '.app-server-row', function() {
     }
 });
 
-$("#tunnelIsLaunchable").change(function(){
+$("#tunnelLaunchable").change(function(){
 	console.log(this.checked);
 	$("#launchableCredentials").toggle(this.checked);
 });

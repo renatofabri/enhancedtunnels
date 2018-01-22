@@ -3,6 +3,10 @@ body {
     color: white;
 }
 
+.row:hover {
+    cursor: default;
+}
+
 .modal {
     color: black;
 }
@@ -15,7 +19,6 @@ body {
 
 .serverXtunnels > .row:hover {
     background-color: #E8E8E8;
-    cursor: default;
 }
 
 .app-window {

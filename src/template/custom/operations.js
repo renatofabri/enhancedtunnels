@@ -51,6 +51,10 @@ function saveTunnelForm() {
         return false;
     }
 
+    obj.tunnelLaunchable = ($('#tunnelLaunchable:checked').val() ? "true" : "false"); // I give up...
+    obj.tunnelUsername = document.forms["tunnelForm"]["tunnelUsername"].value;
+    obj.tunnelPassword = document.forms["tunnelForm"]["tunnelPassword"].value;
+
     app.saveTunnel(obj);
 
     $('#app-tunnel-modal').modal('hide');
