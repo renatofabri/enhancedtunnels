@@ -5,10 +5,13 @@ $(document).on('show.bs.modal', '.modal', function () {
         $('.modal-backdrop').not('.modal-stack').css('z-index', zIndex - 1).addClass('modal-stack');
     }, 0);
 });
+
 // handles the change of screen
 $(".app-button").click(function() {
 	$(this).parent().find('.app-active-button').removeClass('app-active-button').addClass('app-last-button');
 	$(this).removeClass('app-last-button').addClass('app-active-button');
+    $("#app-about").toggle();
+    $("#app-application").toggle();
 });
 
 // handles the click on rows
