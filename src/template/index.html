@@ -42,10 +42,30 @@
                                 <button type="button" data-toggle="modal" data-target="#app-server-modal" id="startAllServers" class="btn btn-primary">Add Server
                                 </button>
                                 or 
-                                <button id="startAllServers" class="btn btn-primary" onclick="callJavaFX('launch all')">Launch All Servers
+                                <button id="startAllServers" class="btn btn-primary" onclick="alertModal('Not implemented yet!')">Launch All Servers
                                     <span class="glyphicon glyphicon-play"></span>
                                 </button>
                             </h2>
+                        </div>
+
+                        <!-- alert modal -->
+                        <div class="modal fade" id="app-alert-modal" tabindex="-1" role="dialog" aria-labelledby="app-alert-title">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                        <h4 class="modal-title" id="app-alert-title">{TITLE}</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <h3 id="app-alert-text">{TEXT}</h3>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button data-dismiss="modal" class="btn btn-default" id="app-alert-close">{CLOSE}</button>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
 
                         <!-- confirmation modal -->
@@ -315,8 +335,8 @@
                         </div>
                         <div class="row app-tunnel-quick-access">
                             <h4>Quick Access</h4>
-                            <ul>
-                                <li class="playable">
+                            <ul id="app-tunnel-quick-access-list">
+                                <!--<li class="playable">
                                     <span><span class="glyphicon glyphicon-play"></span> Name</span>
                                     <span>aaabbb00</span>
                                     <span>33000</span>
@@ -333,7 +353,7 @@
                                     <span>aaabbb00</span>
                                     <span>33000</span>
                                     <span>On parent</span>
-                                </li>
+                                </li>-->
                             </ul>
                         </div>
                     </div>

@@ -111,3 +111,7 @@ function deleteTunnelAction(id) {
 function launchServerAction(id) {
     app.launchServer(id);
 }
+
+function launchTunnelAction(id) {
+    alertModal('To be implemented :(');
+}

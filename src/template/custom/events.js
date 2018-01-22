@@ -52,3 +52,28 @@ function loadTunnelsModal(srvId) {
     document.getElementById('tunnelServerId').value = srvId;
     $('#app-tunnel-list-modal').modal('show');
 }
+
+function alertModal(text) {
+    alertModalButton(text, 'Close');
+}
+
+function alertModalButton(text, close) {
+    alertModalComplete(text, close, 'The app says...');
+}
+
+function alertModalComplete(text, close, title) {
+
+    var alertModalTextElement = document.getElementById('app-alert-text');
+    var alertModalText = alertModalTextElement.innerHTML;
+    alertModalTextElement.innerHTML = alertModalText.replace('{TEXT}', text);
+
+    var alertModalCloseElement = document.getElementById('app-alert-close');
+    var alertModalClose = alertModalCloseElement.innerHTML;
+    alertModalCloseElement.innerHTML = alertModalClose.replace('{CLOSE}', close);
+
+    var alertModalTitleElement = document.getElementById('app-alert-title');
+    var alertModalTitle = alertModalTitleElement.innerHTML;
+    alertModalTitleElement.innerHTML = alertModalTitle.replace('{TITLE}', title);
+
+    $("#app-alert-modal").modal('show');
+}

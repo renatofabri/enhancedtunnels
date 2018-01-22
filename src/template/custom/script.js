@@ -1,15 +1,3 @@
-// SERVER_ID, SERVER_NAME, SERVER_HOST, SERVER_PORT, SERVER_DESCRIPTION
-// List of servers to be displayed
-var serverListTemplate = '\
-<!-- server="SERVER_ID" -->\
-<tr server="SERVER_ID" class="app-server-row">\
-  <td><button onclick="launchServerAction(SERVER_ID)" class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-play"></span></button></td>\
-  <td>SERVER_NAME</td>\
-  <td>SERVER_HOST</td>\
-  <td>SERVER_PORT</td>\
-  <td>SERVER_USERNAME</td>\
-</tr>';
-
 var newServerListTemplate = '\
 	<div class="row">\
 		<div id="serverSERVER_ID">\
@@ -67,55 +55,13 @@ var newTunnelRowTemplate = '<div class="row" tunnel="TUNNEL_ID">\
 </div>\
 ';
 
-// SERVER_ID
-// Commands row to be added after each server
-var serverCommandsTemplate = '\
-<tr id="cmdSrvSERVER_ID" class="app-expanded-server app-server-commands" style="display: none;">\
-  <td colspan=4>\
-    <div class="pull-left">\
-	<button onclick="launchServerAction(SERVER_ID)" class="btn btn-primary"><span class="glyphicon glyphicon-play"></span></button>\
-      <button onclick="toggleTunnelForm(SERVER_ID)" class="btn btn-default"><span class="glyphicon glyphicon-plus"></span> Tunnel</button>\
-    </div>\
-    <div class="pull-right">\
-      <span class="app-button-label">Server commands: </span>\
-      <!--<button class="btn btn-default disabled"><span class="glyphicon glyphicon-edit"></span></button>-->\
-      <button onclick="deleteServerAction(SERVER_ID)" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></button>\
-    </div>\
-  </td>\
-</tr>';
-
-// TABLE_ROWS
-// Row containing Tunnel table
-var tunnelListTemplate = '\
-<tr id="tnlSrvSERVER_ID" class="app-expanded-server" style="display: none;">\
-  <td colspan=4>\
-    <div class="app-tunnel-table">\
-      <table>\
-        TABLE_ROWS \
-      </table>\
-    </div>\
-  </td>\
-</tr>';
-
-// TUNNEL_ID, TUNNEL_NAME, LOCAL_PORT, REMOTE_HOST, REMOTE_PORT, TUNNEL_DESCRIPTION
-// Tunnel row
-var tunnelRowTemplate = '\
-<tr>\
-  <td tunnel=TUNNEL_ID>\
-    <!--<button class="btn btn-primary btn-xs" onclick="alert()"><span class="glyphicon glyphicon-play"></span></button>-->\
-  </td>\
-  <td>TUNNEL_NAME</td>\
-  <td>LOCAL_PORT</td>\
-  <td>REMOTE_HOST</td>\
-  <td>REMOTE_PORT</td>\
-  <td>TUNNEL_DESCRIPTION</td>\
-  <td>\
-    <div class="pull-right">\
-      <!--<button class="btn btn-default btn-xs"><span class="glyphicon glyphicon-edit"></span></button>-->\
-      <button onclick="deleteTunnelAction(TUNNEL_ID)" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-trash"></span></button>\
-    </div>\
-  </td>\
-</tr>';
+var quickAccessTemplate = '<li class="playable" onclick="launchTunnelAction(TUNNEL_ID)">\
+    <span><span class="glyphicon glyphicon-play"></span> TUNNEL_NAME</span>\
+    <span>TUNNEL_USERNAME</span>\
+    <span>LOCAL_PORT</span>\
+    <span>On SERVER_NAME</span>\
+</li>\
+';
 
 
 function replaceAll(str, find, replace) {
@@ -134,6 +80,7 @@ function addServer(json) {
 	//code to add tunnel row
     var tunnelListDOM = document.getElementById("app-tunnel-list");
 	tunnelListDOM.insertAdjacentHTML('beforeend', createTunnelRow(obj));
+
 }
 
 function createServerRow(server) {
@@ -153,8 +100,13 @@ function createCommandRow(server) {
 
 function createTunnelTable(server) {
 	console.log("createTunnelTable");
-	var table = "";
+    var quickAccessListDOM = document.getElementById("app-tunnel-quick-access-list");
+    var table = "";
     for (var i = 0; i < server.tunnels.length; i++) {
+
+//        if tunnel is playable, add to quicklist
+        quickAccessListDOM.insertAdjacentHTML('beforeend', addQuickAccessItem(server.displayName, server.tunnels[i]));
+
         var updatedRow = newTunnelRowTemplate;
         console.log(i);
         console.log(server.tunnels[i]);
@@ -177,4 +129,13 @@ function createTunnelRow(server) {
 	var tunnelRow = newTunnelListTemplate.replace('TABLE_ROWS', table);
 	tunnelRow = replaceAll(tunnelRow, 'SERVER_ID', server.id);
 	return tunnelRow;
+}
+
+function addQuickAccessItem(serverName, tunnel) {
+    var qckItem = quickAccessTemplate.replace('SERVER_NAME', serverName);
+    qckItem = qckItem.replace('TUNNEL_ID', tunnel.id);
+    qckItem = qckItem.replace('TUNNEL_NAME', tunnel.displayName);
+    qckItem = qckItem.replace('TUNNEL_USERNAME', 'mock');
+    qckItem = qckItem.replace('LOCAL_PORT', tunnel.localPort);
+    return qckItem;
 }
