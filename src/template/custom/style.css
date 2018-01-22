@@ -10,10 +10,11 @@ body {
 .serverXtunnels > .row {
     padding-top: 3px;
     padding-bottom: 3px;
+    margin: 0;
 }
 
 .serverXtunnels > .row:hover {
-    background-color: #DBDBDB;
+    background-color: #E8E8E8;
     cursor: default;
 }
 

@@ -43,7 +43,7 @@ var newTunnelRowTemplate = '<div class="row" tunnel="TUNNEL_ID">\
     <div class="col-md-1">\
         Y\
     </div>\
-    <div class="col-md-2">\
+    <div id="tunnelNameTUNNEL_ID" class="col-md-2">\
         TUNNEL_NAME\
     </div>\
     <div class="col-md-1">\
@@ -62,7 +62,7 @@ var newTunnelRowTemplate = '<div class="row" tunnel="TUNNEL_ID">\
         TUNNEL_DESCRIPTION\
     </div>\
     <div class="col-md-1">\
-        <button onclick="deleteTunnelAction(TUNNEL_ID)" class="btn btn-danger btn-xs pull-right"><span class="glyphicon glyphicon-trash"></span></button>\
+        <button onclick="showConfirmationModal(&quot;tunnel&quot;, TUNNEL_ID)" class="btn btn-danger btn-xs pull-right"><span class="glyphicon glyphicon-trash"></span></button>\
     </div>\
 </div>\
 ';
