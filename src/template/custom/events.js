@@ -42,5 +42,6 @@ function loadTunnelsModal(srvId) {
     var title = tunnelModalTitleElement.innerHTML;
     title = title.replace('{SERVER_NAME}', serverName);
     tunnelModalTitleElement.innerHTML = title;
+    document.getElementById('tunnelServerId').value = srvId;
     $('#app-tunnel-list-modal').modal('show');
 }

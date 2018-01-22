@@ -28,14 +28,43 @@ var newServerListTemplate = '\
 			<div class="col-md-1">\
 				SERVER_PORT\
 			</div>\
-			<div class="col-md-2 commands">\
-				<button onclick="toggleTunnelForm(SERVER_ID)" class="btn btn-default btn-xs" style="margin-top: -4px;"><span class="glyphicon glyphicon-plus-sign"></span> tunnel</button>\
-				<button onclick="deleteServerAction(SERVER_ID)" class="btn btn-danger btn-xs pull-right" style="margin-top: 1px;"><span class="glyphicon glyphicon-trash"></span></button>\
-			</div>\
+            <div class="col-md-2 commands">\
+                <button onclick="loadTunnelsModal(SERVER_ID)" class="btn btn-default btn-xs" style="margin-top: -4px;"><span class="glyphicon glyphicon-eye-open"></span> view tunnels</button>\
+                <button onclick="showConfirmationModal(&quot;server&quot;, SERVER_ID)" class="btn btn-danger btn-xs pull-right" style="margin-top: 1px;"><span class="glyphicon glyphicon-trash"></span></button>\
+            </div>\
 		</div>\
 	</div>';
 
-var newTunnelListTemplate = '\
+var newTunnelListTemplate = '<div id="serverSERVER_IDtunnels" class="serverXtunnels" style="display:none;">\
+TABLE_ROWS\
+</div>';
+
+var newTunnelRowTemplate = '<div class="row" tunnel="TUNNEL_ID">\
+    <div class="col-md-1">\
+        Y\
+    </div>\
+    <div class="col-md-2">\
+        TUNNEL_NAME\
+    </div>\
+    <div class="col-md-1">\
+        LOCAL_PORT\
+    </div>\
+    <div class="col-md-2">\
+        REMOTE_HOST\
+    </div>\
+    <div class="col-md-1">\
+        REMOTE_PORT\
+    </div>\
+    <div class="col-md-2">\
+        TUNNEL_USERNAME\
+    </div>\
+    <div class="col-md-2">\
+        TUNNEL_DESCRIPTION\
+    </div>\
+    <div class="col-md-1">\
+        <button onclick="deleteTunnelAction(TUNNEL_ID)" class="btn btn-danger btn-xs pull-right"><span class="glyphicon glyphicon-trash"></span></button>\
+    </div>\
+</div>\
 ';
 
 // SERVER_ID
@@ -103,7 +132,8 @@ function addServer(json) {
 	//code to add command row
 //	serverListDOM.insertAdjacentHTML('beforeend', createCommandRow(obj));
 	//code to add tunnel row
-//	serverListDOM.insertAdjacentHTML('beforeend', createTunnelRow(obj));
+    var tunnelListDOM = document.getElementById("app-tunnel-list");
+	tunnelListDOM.insertAdjacentHTML('beforeend', createTunnelRow(obj));
 }
 
 function createServerRow(server) {
@@ -125,7 +155,7 @@ function createTunnelTable(server) {
 	console.log("createTunnelTable");
 	var table = "";
     for (var i = 0; i < server.tunnels.length; i++) {
-        var updatedRow = tunnelRowTemplate;
+        var updatedRow = newTunnelRowTemplate;
         console.log(i);
         console.log(server.tunnels[i]);
         console.log(server.tunnels[i].displayName);
@@ -134,6 +164,7 @@ function createTunnelTable(server) {
         updatedRow = updatedRow.replace('LOCAL_PORT', server.tunnels[i].localPort);
         updatedRow = updatedRow.replace('REMOTE_HOST', server.tunnels[i].remoteHost);
         updatedRow = updatedRow.replace('REMOTE_PORT', server.tunnels[i].remotePort);
+        updatedRow = updatedRow.replace('TUNNEL_USERNAME', 'mock');
         updatedRow = updatedRow.replace('TUNNEL_DESCRIPTION', server.tunnels[i].description);
         table = table.concat(updatedRow);
     }
@@ -143,7 +174,7 @@ function createTunnelTable(server) {
 function createTunnelRow(server) {
 	console.log("createTunnelRow");
 	var table = createTunnelTable(server);
-	var tunnelRow = tunnelListTemplate.replace('TABLE_ROWS', table);
+	var tunnelRow = newTunnelListTemplate.replace('TABLE_ROWS', table);
 	tunnelRow = replaceAll(tunnelRow, 'SERVER_ID', server.id);
 	return tunnelRow;
 }
