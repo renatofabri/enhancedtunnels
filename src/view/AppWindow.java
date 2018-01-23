@@ -1,5 +1,6 @@
 package view;
 
+import java.io.File;
 import java.util.List;
 
 import controller.JsOperations;
@@ -15,6 +16,7 @@ import javafx.scene.layout.Region;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebEvent;
 import javafx.scene.web.WebView;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -31,12 +33,28 @@ public class AppWindow extends Application {
         
         primaryStage.setTitle("EnhancedTunnels: a tunneling assistant");
 
-        
+        askPuttyLocationIfNotFound(primaryStage);
 
         Scene appScene = new Scene(new Browser(),1024,600);
         
         primaryStage.setScene(appScene);
         primaryStage.show();
+    }
+
+    private void askPuttyLocationIfNotFound(Stage stage) {
+        FileChooser fileChooser = new FileChooser();
+        configureFileChooser(fileChooser);
+        File puttyExe = fileChooser.showOpenDialog(stage);
+        if (puttyExe != null) {
+        	System.out.println(puttyExe.toString());
+        }
+    }
+
+    private void configureFileChooser(final FileChooser fileChooser) {
+    	fileChooser.setTitle("Select the PuTTY executable that will be used");
+    	fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("PuTTY Executable", "*.exe")
+        );
     }
 }
 
