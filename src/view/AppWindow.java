@@ -150,7 +150,7 @@ class Browser extends Region {
 	public Browser() {
 		
 //		getStyleClass().add("browser");
-//		browser.setContextMenuEnabled(false);
+		browser.setContextMenuEnabled(false);
 		
 		String url = Browser.class.getResource("/template/index.html").toExternalForm();
 		
@@ -165,18 +165,29 @@ class Browser extends Region {
 
         				if (newState == State.SUCCEEDED) {
 
-        					preLoadChecks();
-        					loadServersInGUI();
-        					loadJsApp();
+        					preLoad();
+        					load();
+
         				}
         			}
 
-					private void preLoadChecks() {
+					private void preLoad() {
 						if (!Settings.getInstance().isPuttyLocationSet()) {
 							webEngine.executeScript(
 									"alertModal('" + "PuTTY path was not informed. <br>Servers won&apos;t be launched." + "');"
 							);
 						}
+					}
+
+					private void load() {
+						loadAbout();
+    					loadServersInGUI();
+    					loadJsApp();
+					}
+
+					private void loadAbout() {
+						webEngine.executeScript("addPathToPutty('" + Settings.getInstance().getPuttyLocation().replace("\\", "\\\\") + "');");
+						webEngine.executeScript("addLogLevel('" + Settings.getInstance().getLogLevel() + "');");
 					}
 
 					private void loadJsApp() {

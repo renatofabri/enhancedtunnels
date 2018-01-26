@@ -194,3 +194,7 @@ body {
 	overflow: hidden;
 	text-overflow: ellipsis;
 }
+
+#app-about .row {
+    margin: 0;
+}

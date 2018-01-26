@@ -81,6 +81,16 @@ function addServer(json) {
 
 }
 
+function addPathToPutty(path) {
+    var pDOM = document.getElementById("app-pathToPutty");
+    pDOM.insertAdjacentHTML('beforeend', path);
+}
+
+function addLogLevel(log_level) {
+    var pDOM = document.getElementById("app-logLevel");
+    pDOM.insertAdjacentHTML('beforeend', log_level);
+}
+
 function createServerRow(server) {
 	var serverRow = replaceAll(newServerListTemplate, "SERVER_ID", server.id);
 	serverRow = serverRow.replace('SERVER_NAME', server.displayName);
