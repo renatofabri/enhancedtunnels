@@ -56,5 +56,4 @@ public class JsOperations {
 		Server srv = om.getServer(srvId);
 		om.execute(om.getStringForPuTTY(srv));
 	}
-
 }

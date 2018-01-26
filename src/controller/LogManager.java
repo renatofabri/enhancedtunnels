@@ -5,6 +5,7 @@ import model.Settings;
 public class LogManager {
 	
 	/**
+	 * 5 = fatal
 	 * 4 = error
 	 * 3 = warning
 	 * 2 = info
@@ -14,6 +15,10 @@ public class LogManager {
 	private void logMessage(int level, String msg) {
 		if (level >= Settings.getInstance().getLogLevel())
 			System.out.println(msg);
+	}
+
+	public void fatal(String msg) {
+		logMessage(5, "FATAL: " + msg);
 	}
 
 	public void error(String msg) {

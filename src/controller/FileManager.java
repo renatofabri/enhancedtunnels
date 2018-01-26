@@ -86,7 +86,7 @@ public class FileManager {
 	}
 
 	public void retrieveSettings() {
-		Settings.updateInstance((Settings) convertToClass(Settings.getInstance(), getSettingsFile()));
+		Settings.updateInstance((Settings) convertToClass(new Settings(), getSettingsFile()));
 	}
 
 	public void saveSettings(Settings st) {

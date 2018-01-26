@@ -108,19 +108,33 @@ public class OperationManager {
 	 * Accessing and executing commands in CMD
 	 */
 	public void execute(String param) {
-		
-		try {
-			
-			String command = "cmd /c cd " + Settings.getInstance().getPuttyLocation() + "&& start putty.exe " + param;
-			log.info(command);
-			Process p = Runtime.getRuntime().exec(command);
-			log.info(String.format("Return code: %s", p.waitFor()));
-			
+
+		if (!Settings.getInstance().isPuttyLocationSet()) {
+			log.error("Cannot launch since PuTTY is not defined.");
+			return;
 		}
-		catch(Exception e) {
-			log.error(e.getStackTrace().toString());
-			e.printStackTrace();
-		}
+
+		StringBuilder cmd = new StringBuilder();
+		cmd.append("start").append(" ");
+		cmd.append(Settings.getInstance().getPuttyLocation()).append(" ");
+		cmd.append(param);
+
+		String[] cmds = new String[] { cmd.toString() };
+
+		CommandExecuter.run(cmds);
+
+//		try {
+//			String command = "cmd /c cd " + Settings.getInstance().getPuttyLocation() + " && start putty.exe " + param;
+//			log.info(command);
+//			Runtime runtime = Runtime.getRuntime();
+//			Process proc = runtime.exec(command);
+//			log.info(String.format("Return code: %s", proc.waitFor()));
+//			
+//		}
+//		catch(Exception e) {
+//			log.error(e.getStackTrace().toString());
+//			e.printStackTrace();
+//		}
 	}
 
 	/**

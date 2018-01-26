@@ -3,28 +3,46 @@ package model;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import controller.FileManager;
+import controller.LogManager;
+
 @XmlRootElement
 public class Settings {
 
+	static LogManager log = new LogManager();
 	private static Settings instance = null;
 
 	// someday this will be loaded from file
 	private int LOG_LEVEL = 1;
-	private String PUTTY_LOCATION = "C:\\eclipse";
+	private String PUTTY_LOCATION = "";
 	
-	private Settings() {
+	public Settings() {
 		
 	}
 
 	public static void updateInstance(Settings st) {
-		instance = st;
+		if (st != null) {
+			instance = st;
+		} else {
+			instance = new Settings();
+		}
 	}
 
 	public static Settings getInstance() {
 		if (instance == null) {
 			instance = new Settings();
 		}
+		instance.refresh();
 		return instance;
+	}
+
+	private void refresh() {
+		FileManager.getInstance().retrieveSettings();
+	}
+
+	public void save () {
+		log.info("Saving Settings to file");
+		FileManager.getInstance().saveSettings(this);
 	}
 
 	public int getLogLevel() {
@@ -53,4 +71,12 @@ public class Settings {
 		PUTTY_LOCATION = pUTTY_LOCATION;
 	}
 
+	public boolean isPuttyLocationSet() {
+		return (getPUTTY_LOCATION() != null && getPUTTY_LOCATION().trim().length() > 0);
+	}
+
+	public void setAndSavePuttyLocation(String path) {
+		setPUTTY_LOCATION(path);
+		save();
+	}
 }
