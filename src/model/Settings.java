@@ -79,4 +79,8 @@ public class Settings {
 		setPUTTY_LOCATION(path);
 		save();
 	}
+
+	public String getLogPath() {
+		return LogManager.ROOT_FOLDER.toString();
+	}
 }

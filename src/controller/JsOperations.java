@@ -1,16 +1,25 @@
 package controller;
 
+import view.AppWindow;
+import view.Browser;
 import model.Server;
 import model.Tunnel;
 import netscape.javascript.JSObject;
 
 
 public class JsOperations {
-	
+
+	static LogManager log = new LogManager();
 	OperationManager om = new OperationManager();
 	
 	public void callFromJavascript(String msg) {
-		System.out.println("callFromJavascript: " + msg);
+		log.info("callFromJavascript: " + msg);
+	}
+
+	public void resetPuttyPath() {
+		AppWindow aw = new AppWindow();
+		aw.askPuttyLocation();
+		Browser.getInstance().refreshAbout();
 	}
   
 	public void saveServer(JSObject obj) {

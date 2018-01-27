@@ -28,8 +28,8 @@ TABLE_ROWS\
 </div>';
 
 var newTunnelRowTemplate = '<div class="row" tunnel="TUNNEL_ID">\
-    <div class="col-md-1">\
-        Y\
+    <div class="col-md-1 CAN_PLAY">\
+        PLAY_ICON\
     </div>\
     <div id="tunnelNameTUNNEL_ID" class="col-md-2">\
         TUNNEL_NAME\
@@ -63,6 +63,8 @@ var quickAccessTemplate = '<li class="playable" onclick="launchTunnelAction(TUNN
 </li>\
 ';
 
+var playIconStr = '<span class="glyphicon glyphicon-play"></span>';
+
 
 function replaceAll(str, find, replace) {
   return str.replace(new RegExp(find, 'g'), replace);
@@ -83,12 +85,17 @@ function addServer(json) {
 
 function addPathToPutty(path) {
     var pDOM = document.getElementById("app-pathToPutty");
-    pDOM.insertAdjacentHTML('beforeend', path);
+    pDOM.innerHTML = path;
 }
 
 function addLogLevel(log_level) {
     var pDOM = document.getElementById("app-logLevel");
-    pDOM.insertAdjacentHTML('beforeend', log_level);
+    pDOM.innerHTML = log_level;
+}
+
+function addLogPath(log_path) {
+    var pDOM = document.getElementById("app-logPath");
+    pDOM.innerHTML = log_path;
 }
 
 function createServerRow(server) {
@@ -121,12 +128,15 @@ function createTunnelTable(server) {
         console.log(i);
         console.log(server.tunnels[i]);
         console.log(server.tunnels[i].displayName);
+        var tunnelable = (server.tunnels[i].username && server.tunnels[i].username != 'null');
+        updatedRow = updatedRow.replace('CAN_PLAY', (tunnelable ? 'playable' : ''))
+        updatedRow = updatedRow.replace('PLAY_ICON', (tunnelable ? playIconStr : ''))
         updatedRow = replaceAll(updatedRow, 'TUNNEL_ID',server.tunnels[i].id);
         updatedRow = updatedRow.replace('TUNNEL_NAME', server.tunnels[i].displayName);
         updatedRow = updatedRow.replace('LOCAL_PORT', server.tunnels[i].localPort);
         updatedRow = updatedRow.replace('REMOTE_HOST', server.tunnels[i].remoteHost);
         updatedRow = updatedRow.replace('REMOTE_PORT', server.tunnels[i].remotePort);
-        updatedRow = updatedRow.replace('TUNNEL_USERNAME', ((server.tunnels[i].username && server.tunnels[i].username != 'null') ? server.tunnels[i].username : '-'));
+        updatedRow = updatedRow.replace('TUNNEL_USERNAME', ( tunnelable ? server.tunnels[i].username : '-'));
         updatedRow = updatedRow.replace('TUNNEL_DESCRIPTION', server.tunnels[i].description);
         table = table.concat(updatedRow);
     }

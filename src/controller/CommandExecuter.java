@@ -5,12 +5,13 @@ public class CommandExecuter {
 	static LogManager log = new LogManager();
 
 	public static void run(String args[]) {
+		log.debug("CommandExecuter:run(String args[])");
 		try {
 			String[] cmd = new String[3];
 
 			String osName = System.getProperty("os.name");
 
-			if (osName.equals("Windows NT")) {
+			if (osName.equals("Windows NT") || osName.equals("Windows 8.1")) {
 				cmd[0] = "cmd.exe";
 				cmd[1] = "/C";
 			}
@@ -20,6 +21,7 @@ public class CommandExecuter {
 				cmd[1] = "/C";
 				return;
 			}
+
 			cmd[2] = args[0]; // putty execution
 
 			log.info("Executing " + cmd);
@@ -27,10 +29,7 @@ public class CommandExecuter {
 			Runtime runtime = Runtime.getRuntime();
 			Process proc = runtime.exec(cmd);
 
-			//error handler
 			StreamGobbler errorGobbler = new StreamGobbler(proc.getErrorStream(), "error");
-
-			//output handler
 			StreamGobbler outputGobbler = new StreamGobbler(proc.getInputStream(), "info");
 
 			errorGobbler.start();
