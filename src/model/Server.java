@@ -16,7 +16,16 @@ import wrapper.ServerList;
 @XmlType(propOrder={"id","displayName", "host", "port", "username", "password"})
 public class Server {
 
-	private static final int DEFAULT_PORT = 22;
+	public static final String ID = "id";
+	public static final String DISPLAY_NAME = "display_name";
+	public static final String HOST = "host";
+	public static final String PORT = "port";
+	public static final String USERNAME = "username";
+	public static final String PASSWORD = "password";
+	public static final String PARENT_SERVER = "parent_server";
+	public static final String TUNNELS = "tunnels";
+
+	public static final int DEFAULT_PORT = 22;
 
 	private long id;
 	private String displayName;
@@ -64,12 +73,13 @@ public class Server {
 			tunnelListJSON = sb.substring(0, sb.toString().length()-1);
 		}
 		
-		String jsonFormat =     "{\"id\":" + this.getId() + ", "
-				  + "\"displayName\": \"" + this.getDisplayName() + "\", "
-				  + "\"username\": \"" + this.getUsername() + "\", "
-				  + "\"host\": \"" + this.getHost() + "\", "
-				  + "\"port\": " + this.getPort() + ", "
-				  + "\"tunnels\": [ " + tunnelListJSON + " ]}";
+		String jsonFormat =     "{\"" + ID + "\":" + this.getId() + ", "
+				  + "\"" + DISPLAY_NAME + "\": \"" + this.getDisplayName() + "\", "
+				  + "\"" + USERNAME + "\": \"" + this.getUsername() + "\", "
+				  + "\"" + PASSWORD + "\": \"" + this.getPassword() + "\", "
+				  + "\"" + HOST + "\": \"" + this.getHost() + "\", "
+				  + "\"" + PORT + "\": " + this.getPort() + ", "
+				  + "\"" + TUNNELS + "\": [ " + tunnelListJSON + " ]}";
 		
 		return jsonFormat;
 	}

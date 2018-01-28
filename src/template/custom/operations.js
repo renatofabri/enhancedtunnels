@@ -12,50 +12,89 @@ function callJavaFX(text) {
     app.callFromJavascript(text);
 }
 
+function loadEditServer(id) {
+    var server;
+    for (var i = 0; i < serverArray.length; i++) {
+        if (serverArray[i].id == id) {
+            server = serverArray[i];
+            break;
+        }
+    }
+    loadServerForm(server);
+}
+
+function loadServerForm(server) {
+
+    document.forms["serverForm"]["serverId"].value = server.id;
+    document.forms["serverForm"]["serverName"].value = server.display_name;
+    document.forms["serverForm"]["serverHost"].value = server.host;
+    document.forms["serverForm"]["serverPort"].value = server.port;
+    document.forms["serverForm"]["serverUsername"].value = server.username;
+    document.forms["serverForm"]["serverPassword"].value = server.password;
+    $('#app-server-modal').modal('show');
+}
+
 function saveServerForm() {
 
-    const obj = new Object();
-    obj.serverName = document.forms["serverForm"]["serverName"].value;
-    obj.serverHost = document.forms["serverForm"]["serverHost"].value;
-    obj.serverPort = document.forms["serverForm"]["serverPort"].value;
-    if (isNaN(obj.serverPort)) {
+    const server = new Object();
+
+    server.id = document.forms["serverForm"]["serverId"].value;
+    server.display_name = document.forms["serverForm"]["serverName"].value;
+    server.host = document.forms["serverForm"]["serverHost"].value;
+    server.port = document.forms["serverForm"]["serverPort"].value;
+    if (isNaN(server.port)) {
         return false;
     }
-    obj.serverUsername = document.forms["serverForm"]["serverUsername"].value;
-    obj.serverPassword = document.forms["serverForm"]["serverPassword"].value;
+    server.username = document.forms["serverForm"]["serverUsername"].value;
+    server.password = document.forms["serverForm"]["serverPassword"].value;
 
-    app.saveServer(obj);
+    app.saveServer(server);
 
     $('#app-server-modal').modal('hide');
     
     location.reload();
 }
 
+function loadTunnelForm(tunnel) {
+
+    document.forms["tunnelForm"]["tunnelId"].value = tunnel.id;
+    document.forms["tunnelForm"]["tunnelName"].value = tunnel.display_name;
+    document.forms["tunnelForm"]["tunnelLocalPort"].value = tunnel.local_port;
+    document.forms["tunnelForm"]["tunnelRemoteHost"].value = tunnel.remote_host;
+    document.forms["tunnelForm"]["tunnelRemotePort"].value = tunnel.remote_port;
+    document.forms["tunnelForm"]["tunnelDescription"].value = tunnel.description;
+    document.forms["tunnelForm"]["tunnelServerId"].value = tunnel.parent_server;
+    $('#tunnelLaunchable:checked').val(tunnel.launchable == 'true' ? true : false);
+    document.forms["tunnelForm"]["tunnelUsername"].value = tunnel.username;
+    document.forms["tunnelForm"]["tunnelPassword"].value = tunnel.password;
+}
+
 function saveTunnelForm() {
 
-    const obj = new Object();
+    const tunnel = new Object();
     
-    obj.tunnelName = document.forms["tunnelForm"]["tunnelName"].value;
-    obj.tunnelLocalPort = document.forms["tunnelForm"]["tunnelLocalPort"].value;
-    if (isNaN(obj.tunnelLocalPort)) {
+    tunnel.id = document.forms["tunnelForm"]["tunnelId"].value;
+    tunnel.display_name = document.forms["tunnelForm"]["tunnelName"].value;
+    tunnel.local_port = document.forms["tunnelForm"]["tunnelLocalPort"].value;
+    if (isNaN(tunnel.local_port)) {
         return false;
     }
-    obj.tunnelRemoteHost = document.forms["tunnelForm"]["tunnelRemoteHost"].value;
-    obj.tunnelRemotePort = document.forms["tunnelForm"]["tunnelRemotePort"].value;
-    if (isNaN(obj.tunnelRemotePort)) {
+    tunnel.remote_host = document.forms["tunnelForm"]["tunnelRemoteHost"].value;
+    tunnel.remote_port = document.forms["tunnelForm"]["tunnelRemotePort"].value;
+    if (isNaN(tunnel.remote_port)) {
         return false;
     }
-    obj.tunnelDescription = document.forms["tunnelForm"]["tunnelDescription"].value;
-    obj.tunnelParentServer = document.forms["tunnelForm"]["tunnelServerId"].value;
-    if (isNaN(obj.tunnelParentServer)) {
+    tunnel.description = document.forms["tunnelForm"]["tunnelDescription"].value;
+    tunnel.parent_server = document.forms["tunnelForm"]["tunnelServerId"].value;
+    if (isNaN(tunnel.parent_server)) {
         return false;
     }
 
-    obj.tunnelLaunchable = ($('#tunnelLaunchable:checked').val() ? "true" : "false"); // I give up...
-    obj.tunnelUsername = document.forms["tunnelForm"]["tunnelUsername"].value;
-    obj.tunnelPassword = document.forms["tunnelForm"]["tunnelPassword"].value;
+    tunnel.launchable = ($('#tunnelLaunchable:checked').val() ? "true" : "false"); // I give up...
+    tunnel.username = document.forms["tunnelForm"]["tunnelUsername"].value;
+    tunnel.password = document.forms["tunnelForm"]["tunnelPassword"].value;
 
-    app.saveTunnel(obj);
+    app.saveTunnel(tunnel);
 
     $('#app-tunnel-modal').modal('hide');
 

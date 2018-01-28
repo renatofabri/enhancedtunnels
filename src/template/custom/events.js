@@ -17,21 +17,9 @@ $(".app-button").click(function() {
 });
 
 // handles the click on rows
-$("body").on('click', '.app-server-row', function() {
+$("body").on('dblclick', '#app-main-view .row', function() {
 
-	var isExpanded = $(this).attr('expanded');
-    var serverCode = $(this).attr('server');
-
-    if (typeof isExpanded !== typeof undefined && isExpanded !== false) {
-        $("#tnlSrv"+$(this).attr('server')).slideUp();
-        $("#cmdSrv"+$(this).attr('server')).slideUp();
-        $(this).removeAttr('expanded');
-    }
-    else {
-        $("#tnlSrv"+$(this).attr('server')).slideDown();
-        $("#cmdSrv"+$(this).attr('server')).slideDown();
-        $(this).attr('expanded', 'true');
-    }
+	alertModal("Double clicado");
 });
 
 $("#tunnelLaunchable").change(function(){

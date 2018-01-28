@@ -38,13 +38,13 @@
                     <div class="container-fluid app-server-view" id="app-application">
                         <div class="row">
                             <h2>
-                                Click in a server to view details,
+                                Click in a server to view details, or 
                                 <button type="button" data-toggle="modal" data-target="#app-server-modal" id="startAllServers" class="btn btn-primary">Add Server
                                 </button>
-                                or 
+                                <!--or 
                                 <button id="startAllServers" class="btn btn-primary" onclick="alertModal('Not implemented yet!')">Launch All Servers
                                     <span class="glyphicon glyphicon-play"></span>
-                                </button>
+                                </button>-->
                             </h2>
                         </div>
 
@@ -202,6 +202,7 @@
                                                         <div class="form-group col-md-12">
                                                             <label for="tunnelName">Tunnel display name</label>
                                                             <input type="text" class="form-control" id="tunnelName" placeholder="" required/>
+                                                            <input type="hidden" id="tunnelId" placeholder="" required/>
                                                             <input type="hidden" id="tunnelServerId" placeholder="" required/>
                                                         </div>
                                                     </div>
@@ -271,6 +272,7 @@
                                                 <div class="form-group col-md-5">
                                                     <label for="serverName">Display name</label>
                                                     <input type="text" class="form-control" id="serverName" placeholder="" required/>
+                                                    <input type="hidden" id="serverId" placeholder="" required/>
                                                 </div>
                                                 <div class="form-group col-md-5">
                                                     <label for="serverHost">Host</label>

@@ -13,6 +13,17 @@ import wrapper.TunnelList;
 @XmlType(propOrder={"id","displayName", "localPort", "remoteHost", "remotePort", "description", "parentServer", "username", "password"})
 public class Tunnel {
 
+	public static final String ID = "id";
+	public static final String DISPLAY_NAME = "display_name";
+	public static final String LOCAL_PORT  = "local_port";
+	public static final String REMOTE_HOST = "remote_host";
+	public static final String REMOTE_PORT = "remote_port";
+	public static final String DESCRIPTION = "description";
+	public static final String PARENT_SERVER = "parent_server";
+	public static final String LAUNCHABLE  = "launchable";
+	public static final String USERNAME = "username";
+	public static final String PASSWORD = "password";
+
 	public static final int DEFAULT_PORT = 22;
 
 	private long id;
@@ -40,16 +51,16 @@ public class Tunnel {
 	}
 
 	public String toJSON() {
-		String jsonFormat = "{\"id\": " + this.id + ", "
-				+ "\"displayName\": \"" + this.displayName + "\", "
-				+ "\"localPort\": " + this.localPort + ", "
-				+ "\"remoteHost\": \"" + this.remoteHost + "\", "
-				+ "\"remotePort\": " + this.remotePort + ", "
-				+ "\"description\": \"" + this.description + "\", "
-				+ "\"parentServer\": " + this.parentServer + ", "
-				+ "\"launchable\": \"" + this.isLaunchable() + "\", "
-				+ "\"username\": \"" + this.getUsername() + "\", "
-				+ "\"password\": \"" + this.getPassword() + "\"}";
+		String jsonFormat = "{\"" + ID + "\": " + this.id + ", "
+				+ "\"" + DISPLAY_NAME + "\": \"" + this.displayName + "\", "
+				+ "\"" + LOCAL_PORT + "\": " + this.localPort + ", "
+				+ "\"" + REMOTE_HOST + "\": \"" + this.remoteHost + "\", "
+				+ "\"" + REMOTE_PORT + "\": " + this.remotePort + ", "
+				+ "\"" + DESCRIPTION + "\": \"" + this.description + "\", "
+				+ "\"" + PARENT_SERVER + "\": " + this.parentServer + ", "
+				+ "\"" + LAUNCHABLE + "\": \"" + this.isLaunchable() + "\", "
+				+ "\"" + USERNAME + "\": \"" + this.getUsername() + "\", "
+				+ "\"" + PASSWORD + "\": \"" + this.getPassword() + "\"}";
 		return jsonFormat;
 	}
 	
