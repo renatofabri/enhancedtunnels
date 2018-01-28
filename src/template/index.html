@@ -224,13 +224,11 @@
                                                             <label for="tunnelIsLaunchable">Launchable?</label>
                                                             <input type="checkbox" class="" id="tunnelLaunchable">
                                                         </div>
-                                                    </div>
-                                                    <div class="row" id="launchableCredentials" style="display: none;">
-                                                        <div class="form-group col-md-4">
+                                                        <div class="form-group col-md-offset-1 col-md-4 launchableCredentials" style="display: none;">
                                                             <label for="tunnelUsername">Username</label>
                                                             <input type="text" class="form-control" id="tunnelUsername" placeholder="" required/>
                                                         </div>
-                                                        <div class="form-group col-md-4">
+                                                        <div class="form-group col-md-4 launchableCredentials" style="display: none;">
                                                             <label for="tunnelPassword">Password</label>
                                                             <input type="text" class="form-control" id="tunnelPassword" placeholder="" required/>
                                                         </div>
@@ -368,6 +366,7 @@
                             <p>Path to PuTTY: <span id="app-pathToPutty"></span> <button onclick="app.resetPuttyPath()" class="btn btn-xs btn-default" style="margin-top: -4px;">Change location</button></p>
                             <p>Log level: <span id="app-logLevel"></span></p>
                             <p>Log location: <span id="app-logPath"></span></p>
+                            <p>In case you're big fan of Batch files, <button onclick="#" class="btn btn-xs btn-default" style="margin-top: -4px;">Generate connection String</button></p>
                         </div>
                     </div>
                 </div>

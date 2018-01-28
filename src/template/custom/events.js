@@ -8,6 +8,8 @@ $(document).on('show.bs.modal', '.modal', function () {
 
 // handles the change of screen
 $(".app-button").click(function() {
+	if ($(this).hasClass('app-active-button'))
+		return;
 	$(this).parent().find('.app-active-button').removeClass('app-active-button').addClass('app-last-button');
 	$(this).removeClass('app-last-button').addClass('app-active-button');
     $("#app-about").toggle();
@@ -34,7 +36,7 @@ $("body").on('click', '.app-server-row', function() {
 
 $("#tunnelLaunchable").change(function(){
 	console.log(this.checked);
-	$("#launchableCredentials").toggle(this.checked);
+	$(".launchableCredentials").toggle(this.checked);
 });
 
 // tunnel button behavior

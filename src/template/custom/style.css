@@ -90,6 +90,9 @@ body {
     background-color: #333333;
     border: 0;
 }
+.app-sidebar .app-active-button:hover * {
+	cursor: default;
+}
 
 .app-sidebar-menu a {
     color: #797979;

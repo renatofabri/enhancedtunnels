@@ -1,5 +1,6 @@
 package model;
 
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
@@ -44,6 +45,14 @@ public class Server {
 		List<Tunnel> tnlLst = om.getTunnelsFromServer(this.id);
 		
 		String tunnelListJSON = "";
+
+		Collections.sort(tnlLst, new Comparator<Tunnel>(){
+
+			@Override
+			public int compare(Tunnel o1, Tunnel o2) {
+				return o1.getLocalPort() - o2.getLocalPort();
+			}
+		});
 		
 		if (!tnlLst.isEmpty()) {
 			StringBuilder sb = new StringBuilder();
