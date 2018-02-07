@@ -16,11 +16,50 @@ $(".app-button").click(function() {
     $("#app-application").toggle();
 });
 
-// handles the click on rows
-$("body").on('dblclick', '#app-main-view .row', function() {
 
-	alertModal("Double clicado");
+$("#createServer").on('click', function(e){
+    alert('clicked');
 });
+
+$("body").on('contextmenu', function(e) {
+	if (e.ctrlKey)
+		return;
+	return false;
+});
+
+function getMenuPosition(mouse, direction, scrollDir, menuEl) {
+    var win = $(window)[direction](),
+        scroll = $(window)[scrollDir](),
+        menu = menuEl[direction](),
+        position = mouse + scroll;
+
+    if (mouse + menu > win && menu < mouse)
+        position -= menu;
+    
+    return position;
+} 
+
+$(".row").on('contextmenu', function(e){
+    if (e.ctrlKey) 
+    	return;
+    if ($(this).attr('class').match('app-server-table')) {
+    	var menuEl = $("#serverContextMenu");
+    	console.log($(this).attr('code'));
+    	menuEl.attr('code', $(this).attr('code'));
+    	var itemId = menuEl.attr('code');
+	    menuEl.css({
+	                    left: getMenuPosition(e.clientX, 'width', 'scrollLeft', menuEl),
+	                    top:  getMenuPosition(e.clientY, 'height', 'scrollTop', menuEl)
+	                }).show()
+	    return false;
+    }
+});
+
+
+$("body").on('click', function(e) {
+    $("#serverContextMenu").hide();
+});
+
 
 $("#tunnelLaunchable").change(function(){
 	console.log(this.checked);

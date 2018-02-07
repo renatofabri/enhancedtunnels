@@ -2,11 +2,25 @@
 <html lang='en'>
     <head>
         <title>Tunneller</title>
-        <link href="css/reset.css" rel="stylesheet">
-        <link href="css/bootstrap.css" rel="stylesheet">
+        <link href="libs/reset/reset.css" rel="stylesheet">
+        <link href="libs/bootstrap/bootstrap.css" rel="stylesheet">
         <link href="custom/style.css" rel="stylesheet">
     </head>
     <body>
+
+        <ul code="" id="serverContextMenu" class="dropdown-menu" role="menu" style="display: none;">
+            <li onclick="launchFromCM('server')"><a href="#">Launch</a></li>
+            <li onclick="loadTunnelsFromCM()"><a href="#">View Tunnels</a></li>
+            <li><a href="#">Edit</a></li>
+            <li onclick="deleteFromCM('server')" class="delete"><a href="#">Delete</a></li>
+        </ul>
+
+        <ul id="tunnelContextMenu" class="dropdown-menu" role="menu" style="display: none;">
+        	<li onclick="launchFromCM('tunnel')"><a href="#">Launch</a></li>
+            <li><a href="#">Edit</a></li>
+            <li onclick="deleteFromCM('tunnel')"><a href="#">Delete</a></li>
+        </ul>
+
         <div class="container-fluid">
 
             <!-- main container -->
@@ -39,7 +53,7 @@
                         <div class="row">
                             <h2>
                                 Click in a server to view details, or 
-                                <button type="button" data-toggle="modal" data-target="#app-server-modal" id="startAllServers" class="btn btn-primary">Add Server
+                                <button type="button" data-toggle="modal" data-target="#app-server-modal" id="createServer" class="btn btn-primary">Add Server
                                 </button>
                                 <!--or 
                                 <button id="startAllServers" class="btn btn-primary" onclick="alertModal('Not implemented yet!')">Launch All Servers
@@ -375,8 +389,8 @@
             </div>
         </div>
 
-        <script type="application/javascript" src="js/jquery-3.2.1.min.js"></script>
-        <script type="application/javascript" src="js/bootstrap.min.js"></script>
+        <script type="application/javascript" src="libs/jquery/jquery-3.2.1.min.js"></script>
+        <script type="application/javascript" src="libs/bootstrap/bootstrap.min.js"></script>
         <script type="application/javascript" src="custom/events.js"></script>
         <script type="application/javascript" src="custom/script.js"></script>
         <script type="application/javascript" src="custom/operations.js"></script>

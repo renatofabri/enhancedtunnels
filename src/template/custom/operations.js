@@ -158,3 +158,24 @@ function launchServerAction(id) {
 function launchTunnelAction(id) {
     alertModal('To be implemented :(');
 }
+
+function launchFromCM(origin) {
+	var element = null;
+	if (origin == 'server') {
+		element = $("#serverContextMenu");
+		launchServerAction(element.attr('code'));
+	}
+	else if (origin == 'tunnel') {
+		element = $("#tunnelContextMenu");
+		launchTunnelAction(element.attr('code'));
+	}
+	else {
+		console.log('wtf');
+		alert('wtf');
+	}
+}
+
+function loadTunnelsFromCM() {
+	element = $("#serverContextMenu");
+	loadTunnelsModal(element.attr('code'));
+}

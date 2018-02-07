@@ -3,6 +3,10 @@ body {
     color: white;
 }
 
+#serverTunnelContextMenu {
+    position: absolute;
+}
+
 .row:hover {
     cursor: default;
 }
@@ -200,4 +204,14 @@ body {
 
 #app-about .row {
     margin: 0;
+}
+
+
+.dropdown-menu > li:hover a {
+    background-color: #337ab7;
+    color: #FFFFFF;
+}
+
+.dropdown-menu > .delete:hover a {
+    background-color: #d9534f;
 }

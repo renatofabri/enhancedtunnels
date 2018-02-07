@@ -1,5 +1,5 @@
 var newServerListTemplate = '\
-	<div class="row">\
+	<div class="row app-server-row" code="SERVER_ID">\
 		<div id="serverSERVER_ID">\
 			<div class="col-md-1 play">\
 				<button onclick="launchServerAction(SERVER_ID)" class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-play"></span></button>\
@@ -17,8 +17,9 @@ var newServerListTemplate = '\
 				SERVER_PORT\
 			</div>\
             <div class="col-md-2 commands">\
-                <button onclick="loadTunnelsModal(SERVER_ID)" class="btn btn-default btn-xs" style="margin-top: -4px;"><span class="glyphicon glyphicon-eye-open"></span> view tunnels</button>\
-                <button onclick="showConfirmationModal(&quot;server&quot;, SERVER_ID)" class="btn btn-danger btn-xs pull-right" style="margin-top: 1px;"><span class="glyphicon glyphicon-trash"></span></button>\
+				<!--style="margin-top: -4px; on tunnel button-->\
+                <button onclick="loadTunnelsModal(SERVER_ID)" class="btn btn-default btn-xs pull-right" style="margin-top: 1px;"><span class="glyphicon glyphicon-eye-open"></span> view tunnels</button>\
+                <!--<button onclick="showConfirmationModal(&quot;server&quot;, SERVER_ID)" class="btn btn-danger btn-xs pull-right" style="margin-top: 1px;"><span class="glyphicon glyphicon-trash"></span></button>-->\
             </div>\
 		</div>\
 	</div>';
