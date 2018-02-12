@@ -63,13 +63,34 @@ function isRightClickable(element) {
 	}
 }
 
+function hideContextMenus() {
+	$("#serverContextMenu").hide();
+    $("#tunnelContextMenu").hide();
+}
+
 $(".row").on('contextmenu', function(e){
     if (e.ctrlKey) 
     	return;
 
     var clickedElement = isRightClickable(document.elementFromPoint(e.clientX, e.clientY));
     if (clickedElement) {
-    	var menuEl = (clickedElement.getAttribute('class').match('app-server-row') ? $("#serverContextMenu") : $("#tunnelContextMenu"));
+    	var menuEl = null;
+    	if (clickedElement.getAttribute('class').match('app-server-row')) {
+    		menuEl = $("#serverContextMenu");
+    	} 
+    	else {
+    		menuEl = $("#tunnelContextMenu");
+    		console.log(clickedElement.getAttribute('launchable'));
+    		if (clickedElement.getAttribute('launchable') == 'false') {
+    			$("#cm-tunnel-launch").attr('onclick', '');
+    			$("#cm-tunnel-launch").addClass('disabled');
+    		}
+    		else {
+    			$("#cm-tunnel-launch").attr('onclick', 'launchFromCM(&quot;tunnel&quot;)');
+    			$("#cm-tunnel-launch").removeClass('disabled');
+    		}
+    	}
+
     	menuEl.attr('code', clickedElement.getAttribute('code'));
 	    menuEl.css({
 	    				zIndex: 9999,
@@ -78,14 +99,15 @@ $(".row").on('contextmenu', function(e){
 	                }).show()
 	    return false;
     }
+    else {
+    	hideContextMenus();
+    }
 });
 
 
 $("body").on('click', function(e) {
-    $("#serverContextMenu").hide();
-    $("#tunnelContextMenu").hide();
+	hideContextMenus();
 });
-
 
 $("#tunnelLaunchable").change(function(){
 	console.log(this.checked);

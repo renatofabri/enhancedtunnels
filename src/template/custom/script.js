@@ -28,7 +28,7 @@ var newTunnelListTemplate = '<div id="serverSERVER_IDtunnels" class="serverXtunn
 TABLE_ROWS\
 </div>';
 
-var newTunnelRowTemplate = '<div class="row app-tunnel-row" tunnel="TUNNEL_ID" code="TUNNEL_ID">\
+var newTunnelRowTemplate = '<div class="row app-tunnel-row" tunnel="TUNNEL_ID" code="TUNNEL_ID" launchable="IS_LAUNCHABLE">\
     <div class="col-md-1 CAN_PLAY">\
         PLAY_ICON\
     </div>\
@@ -136,6 +136,7 @@ function createTunnelTable(server) {
         console.log(server.tunnels[i]);
         console.log(server.tunnels[i].display_name);
         var tunnelable = (server.tunnels[i].username && server.tunnels[i].username != 'null');
+        updatedRow = updatedRow.replace('IS_LAUNCHABLE', (tunnelable ? 'true' : 'false'))
         updatedRow = updatedRow.replace('CAN_PLAY', (tunnelable ? 'playable' : ''))
         updatedRow = updatedRow.replace('PLAY_ICON', (tunnelable ? playIconStr : ''))
         updatedRow = replaceAll(updatedRow, 'TUNNEL_ID',server.tunnels[i].id);
