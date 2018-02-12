@@ -44,8 +44,11 @@ $(".row").on('contextmenu', function(e){
     	return;
     if ($(this).attr('class').match('app-server-table')) {
     	var menuEl = $("#serverContextMenu");
-    	console.log($(this).attr('code'));
-    	menuEl.attr('code', $(this).attr('code'));
+    	// dirty deeds, done dirt cheap
+    	var itemSelected = document.elementFromPoint(e.clientX, e.clientY).parentElement.parentElement;
+    	var code = itemSelected.getAttribute('code');
+    	console.log(code);
+    	menuEl.attr('code', code);
     	var itemId = menuEl.attr('code');
 	    menuEl.css({
 	                    left: getMenuPosition(e.clientX, 'width', 'scrollLeft', menuEl),

@@ -179,3 +179,19 @@ function loadTunnelsFromCM() {
 	element = $("#serverContextMenu");
 	loadTunnelsModal(element.attr('code'));
 }
+
+function deleteFromCM(origin) {
+	var element = null;
+	if (origin == 'server') {
+		element = $("#serverContextMenu");
+		showConfirmationModal('server', element.attr('code'));
+	}
+	else if (origin == 'tunnel') {
+		element = $("#tunnelContextMenu");
+		launchTunnelAction(element.attr('code'));
+	}
+	else {
+		console.log('wtf');
+		alert('wtf');
+	}
+}
