@@ -39,18 +39,40 @@ function getMenuPosition(mouse, direction, scrollDir, menuEl) {
     return position;
 } 
 
+function isRightClickable(element) {
+	var grandparent = element.parentElement.parentElement;
+	var parent = element.parentElement;
+	if (grandparent != null 
+			&& grandparent.getAttribute('class') != null 
+			&& (grandparent.getAttribute('class').match('app-server-row')
+					|| grandparent.getAttribute('class').match('app-tunnel-row'))) {
+		return grandparent;
+	}
+	else if (parent != null 
+				&& parent.getAttribute('class') != null 
+				&& parent.getAttribute('class').match('app-tunnel-row')) {
+		return parent;
+	}
+	else if (element != null 
+				&& element.getAttribute('class') != null
+				&& element.getAttribute('class').match('app-tunnel-row')) {
+		return element;
+	}
+	else {
+		return null;
+	}
+}
+
 $(".row").on('contextmenu', function(e){
     if (e.ctrlKey) 
     	return;
-    if ($(this).attr('class').match('app-server-table')) {
-    	var menuEl = $("#serverContextMenu");
-    	// dirty deeds, done dirt cheap
-    	var itemSelected = document.elementFromPoint(e.clientX, e.clientY).parentElement.parentElement;
-    	var code = itemSelected.getAttribute('code');
-    	console.log(code);
-    	menuEl.attr('code', code);
-    	var itemId = menuEl.attr('code');
+
+    var clickedElement = isRightClickable(document.elementFromPoint(e.clientX, e.clientY));
+    if (clickedElement) {
+    	var menuEl = (clickedElement.getAttribute('class').match('app-server-row') ? $("#serverContextMenu") : $("#tunnelContextMenu"));
+    	menuEl.attr('code', clickedElement.getAttribute('code'));
 	    menuEl.css({
+	    				zIndex: 9999,
 	                    left: getMenuPosition(e.clientX, 'width', 'scrollLeft', menuEl),
 	                    top:  getMenuPosition(e.clientY, 'height', 'scrollTop', menuEl)
 	                }).show()
@@ -61,6 +83,7 @@ $(".row").on('contextmenu', function(e){
 
 $("body").on('click', function(e) {
     $("#serverContextMenu").hide();
+    $("#tunnelContextMenu").hide();
 });
 
 

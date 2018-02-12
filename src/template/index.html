@@ -10,15 +10,15 @@
 
         <ul code="" id="serverContextMenu" class="dropdown-menu" role="menu" style="display: none;">
             <li onclick="launchFromCM('server')"><a href="#">Launch</a></li>
-            <li onclick="loadTunnelsFromCM()"><a href="#">View Tunnels</a></li>
-            <li><a href="#">Edit</a></li>
+            <li onclick="viewTunnelsFromCM()"><a href="#">View Tunnels</a></li>
+            <li onclick="editFromCM('server')"><a href="#">Edit</a></li>
             <li onclick="deleteFromCM('server')" class="delete"><a href="#">Delete</a></li>
         </ul>
 
         <ul id="tunnelContextMenu" class="dropdown-menu" role="menu" style="display: none;">
         	<li onclick="launchFromCM('tunnel')"><a href="#">Launch</a></li>
-            <li><a href="#">Edit</a></li>
-            <li onclick="deleteFromCM('tunnel')"><a href="#">Delete</a></li>
+            <li onclick="editFromCM('tunnel')"><a href="#">Edit</a></li>
+            <li onclick="deleteFromCM('tunnel')" class="delete"><a href="#">Delete</a></li>
         </ul>
 
         <div class="container-fluid">
@@ -119,7 +119,7 @@
                                                 <a aria-controls="list" aria-expanded="true" data-toggle="tab" href="#tunnel-list-tab" id="home-tab" role="tab">List</a>
                                             </li>
                                             <li class="" role="presentation">
-                                                <a aria-controls="form" aria-expanded="false" data-toggle="tab" href="#tunnel-form-tab" id="form-tab" role="tab">New Tunnel</a>
+                                                <a aria-controls="form" aria-expanded="false" data-toggle="tab" href="#tunnel-form-tab" id="form-tab" role="tab">Tunnel Form</a>
                                             </li>
                                         </ul>
                                         <div class="tab-content" id="app-tab-content">

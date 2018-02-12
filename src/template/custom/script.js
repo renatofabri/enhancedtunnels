@@ -28,7 +28,7 @@ var newTunnelListTemplate = '<div id="serverSERVER_IDtunnels" class="serverXtunn
 TABLE_ROWS\
 </div>';
 
-var newTunnelRowTemplate = '<div class="row" tunnel="TUNNEL_ID">\
+var newTunnelRowTemplate = '<div class="row app-tunnel-row" tunnel="TUNNEL_ID" code="TUNNEL_ID">\
     <div class="col-md-1 CAN_PLAY">\
         PLAY_ICON\
     </div>\

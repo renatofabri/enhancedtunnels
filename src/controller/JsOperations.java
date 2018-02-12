@@ -16,6 +16,14 @@ public class JsOperations {
 		log.info("callFromJavascript: " + msg);
 	}
 
+	public void logInfo(String msg) {
+		log.info(msg);
+	}
+
+	public void logError(String msg) {
+		log.error(msg);
+	}
+
 	public void resetPuttyPath() {
 		AppWindow aw = new AppWindow();
 		aw.askPuttyLocation();

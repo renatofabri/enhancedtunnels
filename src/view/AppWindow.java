@@ -25,6 +25,7 @@ public class AppWindow extends Application {
 	static LogManager log = new LogManager();
 	
     public static void main(String[] args) {
+    	log.info("Launching the application!");
         launch(args);
     }
     
@@ -32,11 +33,8 @@ public class AppWindow extends Application {
     public void start(Stage primaryStage) {
         
         primaryStage.setTitle("EnhancedTunnels: a tunneling assistant");
-
         loadIcon(primaryStage);
-
         loadPuttyCheck();
-
         loadApp(primaryStage);
         primaryStage.show();
     }

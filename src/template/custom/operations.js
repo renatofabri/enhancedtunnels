@@ -55,6 +55,18 @@ function saveServerForm() {
     location.reload();
 }
 
+function loadEditTunnel(id) {
+    var tunnel;
+    for (var i = 0; i < tunnelArray.length; i++) {
+        if (tunnelArray[i].id == id) {
+            tunnel = tunnelArray[i];
+            break;
+        }
+    }
+    loadTunnelForm(tunnel);
+    $('#form-tab').tab('show');
+}
+
 function loadTunnelForm(tunnel) {
 
     document.forms["tunnelForm"]["tunnelId"].value = tunnel.id;
@@ -139,6 +151,14 @@ function confirmDeletion() {
     }
 }
 
+function confirmServerDeletion(id) {
+	showConfirmationModal('server', id);
+}
+
+function confirmTunnelDeletion(id) {
+	showConfirmationModal('tunnel', id);
+}
+
 function deleteServerAction(id) {
     console.log('Server ' + id + ' will be deleted');
     app.deleteServer(id);
@@ -159,39 +179,49 @@ function launchTunnelAction(id) {
     alertModal('To be implemented :(');
 }
 
-function launchFromCM(origin) {
-	var element = null;
+
+/* ContextMenu operations */
+/* The following methods are wired to Server CM and Tunnel CM */
+
+function operationDispatcherCM(origin, operation) {
 	if (origin == 'server') {
-		element = $("#serverContextMenu");
-		launchServerAction(element.attr('code'));
+		var code = $("#serverContextMenu").attr('code');
+		operation[origin](code);
 	}
 	else if (origin == 'tunnel') {
-		element = $("#tunnelContextMenu");
-		launchTunnelAction(element.attr('code'));
+		var code = $("#tunnelContextMenu").attr('code');
+		operation[origin](code);
 	}
 	else {
-		console.log('wtf');
-		alert('wtf');
+		var msg = 'Improper use: method operationDispatcherCM was invoked with parameters ' + origin + ', ' + operation.
+		console.log(msg);
+		alert(msg);
 	}
 }
 
-function loadTunnelsFromCM() {
-	element = $("#serverContextMenu");
-	loadTunnelsModal(element.attr('code'));
+function launchFromCM(origin) {
+	var operation = {};
+	operation['server'] = launchServerAction;
+	operation['tunnel'] = launchTunnelAction;
+	operationDispatcherCM(origin, operation);
 }
 
 function deleteFromCM(origin) {
-	var element = null;
-	if (origin == 'server') {
-		element = $("#serverContextMenu");
-		showConfirmationModal('server', element.attr('code'));
-	}
-	else if (origin == 'tunnel') {
-		element = $("#tunnelContextMenu");
-		launchTunnelAction(element.attr('code'));
-	}
-	else {
-		console.log('wtf');
-		alert('wtf');
-	}
+	var operation = {};
+	operation['server'] = confirmServerDeletion;
+	operation['tunnel'] = confirmTunnelDeletion;
+	operationDispatcherCM(origin,operation);
+}
+
+function editFromCM(origin) {
+	var operation = {};
+	operation['server'] = loadEditServer;
+	operation['tunnel'] = loadEditTunnel;
+	operationDispatcherCM(origin,operation)
+}
+
+
+function viewTunnelsFromCM() {
+	var code = $("#serverContextMenu").attr('code');
+	loadTunnelsModal(code);
 }
