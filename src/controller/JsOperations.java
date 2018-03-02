@@ -17,11 +17,11 @@ public class JsOperations {
 	}
 
 	public void logInfo(String msg) {
-		log.info(msg);
+		log.info("JS info: " + msg);
 	}
 
 	public void logError(String msg) {
-		log.error(msg);
+		log.error("JS error: " + msg);
 	}
 
 	public void resetPuttyPath() {
@@ -97,6 +97,8 @@ public class JsOperations {
 		if (tnl != null) {
 			om.execute(om.getConnectionParam(tnl));
 		}
-		log.fatal("Cannot launch since tunnel is not launchable!");
+		else {
+			log.fatal("Cannot launch since tunnel is not launchable!");
+		}
 	}
 }
