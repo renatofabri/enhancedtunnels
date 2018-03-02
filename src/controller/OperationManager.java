@@ -35,6 +35,16 @@ public class OperationManager {
 		return connectionParam;
 	}
 
+	public String getConnectionParam(Tunnel tunnel) {
+		StringBuilder str = new StringBuilder();
+		str.append(String.format("%s@localhost -P %s -pw %s", tunnel.getUsername(),
+															  tunnel.getLocalPort(),
+															  tunnel.getPassword()));
+		String connectionParam = str.toString();
+		log.info("connection param for tunnel: "+connectionParam);
+		return connectionParam;
+	}
+
 	/**
 	 * This method will return the ports as String to be used by PuTTY
 	 * Fomat: -L localPort:RemoteHost:RemotePort
@@ -144,4 +154,8 @@ public class OperationManager {
 		
 	}
 
+	public Tunnel getLaunchableTunnel(long id) {
+		Tunnel tnl = TunnelList.getInstance().load(id);
+		return (tnl.isLaunchable() ? tnl : null);
+	}
 }

@@ -176,7 +176,7 @@ function launchServerAction(id) {
 }
 
 function launchTunnelAction(id) {
-    alertModal('To be implemented :(');
+	app.launchTunnel(id);
 }
 
 

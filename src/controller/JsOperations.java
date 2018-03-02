@@ -90,4 +90,13 @@ public class JsOperations {
 		Server srv = om.getServer(srvId);
 		om.execute(om.getStringForPuTTY(srv));
 	}
+
+	public void launchTunnel(String id) {
+		Long tnlId = Long.parseLong(id);
+		Tunnel tnl = om.getLaunchableTunnel(tnlId);
+		if (tnl != null) {
+			om.execute(om.getConnectionParam(tnl));
+		}
+		log.fatal("Cannot launch since tunnel is not launchable!");
+	}
 }
