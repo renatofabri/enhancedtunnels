@@ -55,13 +55,13 @@ public class TunnelList {
 	}
 
 	public void add (Tunnel tunnel) {
-		log.info("Adding new tunnel with id " + tunnel.getId() + "...");
+		log.info("Processing tunnel with id " + tunnel.getId() + "...");
 		if (tunnel.getParentServer() == 0 || !ServerList.exists(tunnel.getParentServer())) {
 			throw new InvalidParameterException("Parent Server ID informed is not valid");
 		}
 		if (tunnelList.contains(tunnel)) {
-			log.error("Tunnel "+tunnel.getId()+" already exists!");
-			return;
+			log.error("Tunnel "+tunnel.getId()+" already exists! Handling as Update...");
+			tunnelList.remove(tunnel);
 		}
 		tunnelList.add(tunnel);
 		this.save();

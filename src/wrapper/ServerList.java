@@ -63,13 +63,13 @@ public class ServerList {
 	}
 
 	public void add (Server server) {
-		log.info("Adding new server with id " + server.getId() + "...");
+		log.info("Processing server with id " + server.getId() + "...");
 		if (server.getParentServer() != 0 && !ServerList.exists(server.getParentServer())) {
 			throw new InvalidParameterException("Parent Server ID informed is not valid");
 		}
 		if (serverList.contains(server)) {
-			log.error("Server " + server.getId() + " already exists!");
-			return;
+			log.info("Server " + server.getId() + " already exists! Handling as update...");
+			serverList.remove(server);
 		}
 		serverList.add(server);
 		this.save();

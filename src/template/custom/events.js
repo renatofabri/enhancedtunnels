@@ -86,7 +86,7 @@ $(".row").on('contextmenu', function(e){
     			$("#cm-tunnel-launch").addClass('disabled');
     		}
     		else {
-    			$("#cm-tunnel-launch").attr('onclick', 'launchFromCM(&quot;tunnel&quot;)');
+    			$("#cm-tunnel-launch").attr('onclick', "launchFromCM('tunnel')");
     			$("#cm-tunnel-launch").removeClass('disabled');
     		}
     	}

@@ -143,7 +143,7 @@ function createTunnelTable(server) {
         updatedRow = updatedRow.replace('TUNNEL_NAME', server.tunnels[i].display_name);
         updatedRow = updatedRow.replace('LOCAL_PORT', server.tunnels[i].local_port);
         updatedRow = updatedRow.replace('REMOTE_HOST', server.tunnels[i].remote_host);
-        updatedRow = updatedRow.replace('REMOTE_PORT', server.tunnels[i].repote_port);
+        updatedRow = updatedRow.replace('REMOTE_PORT', server.tunnels[i].remote_port);
         updatedRow = updatedRow.replace('TUNNEL_USERNAME', ( tunnelable ? server.tunnels[i].username : '-'));
         updatedRow = updatedRow.replace('TUNNEL_DESCRIPTION', server.tunnels[i].description);
         table = table.concat(updatedRow);
