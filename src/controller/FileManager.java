@@ -19,8 +19,6 @@ import wrapper.TunnelList;
 
 public class FileManager {
 	
-	
-
 	private static FileManager instance = null;
 
 	public static final Path ROOT_FOLDER = Paths.get(new File("").getAbsolutePath(), "data");
@@ -108,7 +106,6 @@ public class FileManager {
 	}
 
 	public static Object convertToClass(Object object, File file) {
-
 		if (isFileEmpty(file)) {
 			return null;
 		}

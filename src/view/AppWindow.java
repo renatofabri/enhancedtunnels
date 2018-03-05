@@ -25,8 +25,14 @@ public class AppWindow extends Application {
 	static LogManager log = new LogManager();
 	
     public static void main(String[] args) {
-    	log.info("Launching the application!");
-        launch(args);
+
+    	try {
+	    	log.info("Launching the application!");
+	        launch(args);
+    	}
+    	catch (Exception e) {
+    		log.fatal("Unfortunately, s**t happens! " + e.toString());
+    	}
     }
     
     @Override

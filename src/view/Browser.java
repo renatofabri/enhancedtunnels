@@ -16,9 +16,12 @@ import model.Server;
 import model.Settings;
 import netscape.javascript.JSObject;
 import controller.JsOperations;
+import controller.LogManager;
 import controller.OperationManager;
 
 public class Browser extends Region {
+
+	static LogManager log = new LogManager();
 
 	final WebView browser = new WebView();
 	final WebEngine webEngine = browser.getEngine();
@@ -47,8 +50,13 @@ public class Browser extends Region {
         			public void changed(ObservableValue<? extends State> ov, State oldState, State newState) {
 
         				if (newState == State.SUCCEEDED) {
-        					preLoad();
-        					load();
+        					try {
+        						preLoad();
+        						load();
+        					}
+        					catch (Exception e) {
+        						log.fatal("Unfortunately, s**t happens! " + e.toString());
+        					}
         				}
         			}
         		});

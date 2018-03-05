@@ -25,13 +25,14 @@ public class JsOperations {
 	}
 
 	public void resetPuttyPath() {
+		log.debug("JsOperations:resetPuttyPath()");
 		AppWindow aw = new AppWindow();
 		aw.askPuttyLocation();
 		Browser.getInstance().refreshAbout();
 	}
   
 	public void saveServer(JSObject obj) {
-
+		log.debug("JsOperations:saveServer(obj)");
 		Server.Builder builder = null;
 		String id = (String) obj.getMember(Server.ID);
 
@@ -51,7 +52,7 @@ public class JsOperations {
 	}
 
 	public void saveTunnel(JSObject obj) {
-
+		log.debug("JsOperations:saveTunnel()");
 		Tunnel.Builder builder = null;
 		String tunnelId = (String) obj.getMember(Tunnel.ID);
 
@@ -76,22 +77,26 @@ public class JsOperations {
 	}
 
 	public void deleteServer(String id) {
+		log.debug("JsOperations:deleteServer("+id+")");
 		Long srvId = Long.parseLong(id);
 		om.removeServer(srvId);
 	}
 	
 	public void deleteTunnel(String id) {
+		log.debug("JsOperations:deleteTunnel("+id+")");
 		Long tnlId = Long.parseLong(id);
 		om.removeTunnel(tnlId);
 	}
 
 	public void launchServer(String id) {
+		log.debug("JsOperations:launchServer("+id+")");
 		Long srvId = Long.parseLong(id);
 		Server srv = om.getServer(srvId);
 		om.execute(om.getStringForPuTTY(srv));
 	}
 
 	public void launchTunnel(String id) {
+		log.debug("JsOperations:launchTunnel("+id+")");
 		Long tnlId = Long.parseLong(id);
 		Tunnel tnl = om.getLaunchableTunnel(tnlId);
 		if (tnl != null) {

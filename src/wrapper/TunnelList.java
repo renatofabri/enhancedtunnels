@@ -28,10 +28,12 @@ public class TunnelList {
 
 
 	public TunnelList() {
+		log.debug("TunnelList()");
 		this.tunnelList = new ArrayList<Tunnel>();
 	}
 
 	public static void updateInstance(TunnelList newInstance) {
+		log.debug("TunnelList:updateInstance()");
 		if (newInstance != null) {
 			instance = newInstance;
 		} else {
@@ -40,6 +42,7 @@ public class TunnelList {
 	}
 
 	public static TunnelList getInstance() {
+		log.debug("TunnelList:getInstance()");
 		if (instance == null) {
 			instance = new TunnelList();
 		}
@@ -51,10 +54,12 @@ public class TunnelList {
 	 * This method refreshes the data in this Singleton
 	 */
 	private void refresh() {
+		log.debug("TunnelList:refresh()");
 		FileManager.getInstance().retrieveTunnels(); 
 	}
 
 	public void add (Tunnel tunnel) {
+		log.debug("TunnelList:add()");
 		log.info("Processing tunnel with id " + tunnel.getId() + "...");
 		if (tunnel.getParentServer() == 0 || !ServerList.exists(tunnel.getParentServer())) {
 			throw new InvalidParameterException("Parent Server ID informed is not valid");

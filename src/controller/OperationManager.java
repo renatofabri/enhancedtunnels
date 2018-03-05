@@ -24,6 +24,7 @@ public class OperationManager {
 	 * @return
 	 */
 	public String getConnectionParam(Server server) {
+		log.debug("OperationManager:getConnectionParam(server)");
 		StringBuilder str = new StringBuilder();
 		str.append(String.format("%s@%s -P %s -pw %s", server.getUsername(), 
 													server.getHost(), 
@@ -36,6 +37,7 @@ public class OperationManager {
 	}
 
 	public String getConnectionParam(Tunnel tunnel) {
+		log.debug("OperationManager:getConnectionParam(tunnel)");
 		StringBuilder str = new StringBuilder();
 		str.append(String.format("%s@localhost -P %s -pw %s", tunnel.getUsername(),
 															  tunnel.getLocalPort(),
@@ -51,6 +53,7 @@ public class OperationManager {
 	 * @return
 	 */
 	public String getPortsParam(List<Tunnel> tunnelList) {
+		log.debug("OperationManager:getPortsParam(tunnelList)");
 		StringBuilder str = new StringBuilder();
 		for (Tunnel tunnel : tunnelList) {
 			str.append(String.format("-L %s:%s:%s ", Integer.toString(tunnel.getLocalPort()), 
@@ -68,6 +71,7 @@ public class OperationManager {
 	 * @return
 	 */
 	public String getStringForPuTTY(Server server) {
+		log.debug("OperationManager:getStringForPuTTY(server)");
 		String serverConn = getConnectionParam(server);
 		String tunnels = getPortsParam(TunnelList.getInstance().getServerTunnels(server.getId()));
 		return String.format("%s %s", serverConn, tunnels);
@@ -78,23 +82,28 @@ public class OperationManager {
 	 * @param srv
 	 */
 	public void addNewServer(Server srv) {
+		log.debug("OperationManager:addNewServer(srv)");
 		ServerList.getInstance().add(srv);
 	}
 
 	public void removeServer(long id) {
+		log.debug("OperationManager:removeServer("+id+")");
 		ServerList.getInstance().remove(new Server.Builder(id).build());
 		
 	}
 
 	public List<Server> getServers() {
+		log.debug("OperationManager:getServers()");
 		return ServerList.getInstance().getServerList();
 	}
 
 	public Server getServer(long id) {
+		log.debug("OperationManager:getServer("+id+")");
 		return ServerList.getInstance().load(id);
 	}
 
 	public List<Tunnel> getTunnelsFromServer(long id) {
+		log.debug("OperationManager:getTunnelsFromServer("+id+")");
 		return TunnelList.getInstance().getServerTunnels(id);
 	}
 
@@ -103,14 +112,17 @@ public class OperationManager {
 	 * @param tnl
 	 */
 	public void addNewTunnel(Tunnel tnl) {
+		log.debug("OperationManager:addNewTunnel(tnl)");
 		TunnelList.getInstance().add(tnl);
 	}
 	
 	public void removeTunnel(long id) {
+		log.debug("OperationManager:removeTunnel("+id+")");
 		TunnelList.getInstance().remove(new Tunnel.Builder(id).build());
 	}
 
 	public List<Tunnel> getTunnels() {
+		log.debug("OperationManager:getTunnels()");
 		return TunnelList.getInstance().getTunnelList();
 	}
 
@@ -118,7 +130,7 @@ public class OperationManager {
 	 * Accessing and executing commands in CMD
 	 */
 	public void execute(String param) {
-
+		log.debug("OperationManager:execute("+param+")");
 		if (!Settings.getInstance().isPuttyLocationSet()) {
 			log.error("Cannot launch since PuTTY is not defined.");
 			return;
@@ -155,6 +167,7 @@ public class OperationManager {
 	}
 
 	public Tunnel getLaunchableTunnel(long id) {
+		log.debug("OperationManager:getLaunchableTunnel("+id+")");
 		Tunnel tnl = TunnelList.getInstance().load(id);
 		return (tnl.isLaunchable() ? tnl : null);
 	}

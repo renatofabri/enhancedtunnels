@@ -28,10 +28,12 @@ public class ServerList {
 	private List<Server> serverList;
 
 	public ServerList() {
+		log.debug("ServerList()");
 		this.serverList = new ArrayList<Server>();
 	}
 
 	public static void updateInstance(ServerList newInstance) {
+		log.debug("ServerList:updateInstance()");
 		if (newInstance != null) {
 			instance = newInstance;
 		} else {
@@ -40,6 +42,7 @@ public class ServerList {
 	}
 
 	public static ServerList getInstance() {
+		log.debug("ServerList:getInstance()");
 		if (instance == null) {
 			instance = new ServerList();
 		}
@@ -48,6 +51,7 @@ public class ServerList {
 	}
 
 	public static boolean exists(long id) {
+		log.debug("ServerList:exists()");
 		for (Server srv : instance.getServerList()) {
 			if (id == srv.getId())
 				return true;
@@ -59,10 +63,12 @@ public class ServerList {
 	 * This method refreshes the data in this Singleton
 	 */
 	private void refresh() {
+		log.debug("ServerList:refresh()");
 		FileManager.getInstance().retrieveServers(); 
 	}
 
 	public void add (Server server) {
+		log.debug("ServerList:add(server)");
 		log.info("Processing server with id " + server.getId() + "...");
 		if (server.getParentServer() != 0 && !ServerList.exists(server.getParentServer())) {
 			throw new InvalidParameterException("Parent Server ID informed is not valid");
@@ -80,6 +86,7 @@ public class ServerList {
 	 * @param server
 	 */
 	public void save () {
+		log.debug("ServerList:save()");
 		log.info("Saving to file");
 		FileManager.getInstance().saveServers(this);
 	}
@@ -90,6 +97,7 @@ public class ServerList {
 	 * @return Server or Null if not found in list
 	 */
 	public Server load (long id) {
+		log.debug("ServerList:load("+id+")");
 		for (Server srv : getServerList()) {
 			if (srv.getId() == id)
 				return srv;
@@ -102,6 +110,7 @@ public class ServerList {
 	 * @param server
 	 */
 	public void remove (Server server) {
+		log.debug("ServerList:remove(server)");
 		log.info("Removing server with id " + server.getId());
 		List<Tunnel> tnlLst = TunnelList.getInstance().getServerTunnels(server.getId());
 		if (!tnlLst.isEmpty()) {
@@ -116,20 +125,25 @@ public class ServerList {
 	}
 	
 	public List<Server> getServerList() {
+		log.debug("ServerList:getServerList()");
 		return serverList;
 	}
 
 	@XmlElement(name = "Server")
 	public void setServerList(List<Server> serverList) {
+		log.debug("ServerList:setServerList(serverList)");
 		this.serverList = serverList;
 	}
 
 	public long getNextId() {
+		log.debug("ServerList:getNextId()");
 		Collection<Server> col = serverList;
 		if (col.isEmpty()) {
 			return 1;
 		}
 		Server highest = Collections.max(col, Server.ID_COMPARATOR);
-		return highest.getId()+1;
+		long nextId = highest.getId()+1;
+		log.debug("Btw, the NextId is " + nextId);
+		return nextId;
 	}
 }
