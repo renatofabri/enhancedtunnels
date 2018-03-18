@@ -10,7 +10,7 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import controller.LogManager;
-import controller.FileManager;
+import controller.files.FileTunnel;
 import model.Tunnel;
 
 /**
@@ -28,34 +28,16 @@ public class TunnelList {
 
 
 	public TunnelList() {
-		log.debug("TunnelList()");
 		this.tunnelList = new ArrayList<Tunnel>();
-	}
-
-	public static void updateInstance(TunnelList newInstance) {
-		log.debug("TunnelList:updateInstance()");
-		if (newInstance != null) {
-			instance = newInstance;
-		} else {
-			instance = new TunnelList();
-		}
 	}
 
 	public static TunnelList getInstance() {
 		log.debug("TunnelList:getInstance()");
 		if (instance == null) {
-			instance = new TunnelList();
+			log.debug("Instance is null, so updating instance...");
+			instance = FileTunnel.getTunnels();
 		}
-		instance.refresh();
 		return instance;
-	}
-
-	/**
-	 * This method refreshes the data in this Singleton
-	 */
-	private void refresh() {
-		log.debug("TunnelList:refresh()");
-		FileManager.getInstance().retrieveTunnels(); 
 	}
 
 	public void add (Tunnel tunnel) {
@@ -76,8 +58,9 @@ public class TunnelList {
 	 * Save a Tunnel instance to the list
 	 */
 	public void save () {
+		log.debug("TunnelList:save()");
 		log.info("Saving to file");
-		FileManager.getInstance().saveTunnels(this);
+		FileTunnel.saveTunnels(this);
 	}
 
 	/**

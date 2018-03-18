@@ -10,7 +10,7 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import controller.LogManager;
-import controller.FileManager;
+import controller.files.FileServer;
 import model.Server;
 import model.Tunnel;
 
@@ -28,25 +28,15 @@ public class ServerList {
 	private List<Server> serverList;
 
 	public ServerList() {
-		log.debug("ServerList()");
 		this.serverList = new ArrayList<Server>();
 	}
 
-	public static void updateInstance(ServerList newInstance) {
-		log.debug("ServerList:updateInstance()");
-		if (newInstance != null) {
-			instance = newInstance;
-		} else {
-			instance = new ServerList();
-		}
-	}
-
 	public static ServerList getInstance() {
-		log.debug("ServerList:getInstance()");
+		log.debug("ServerList.getInstance()");
 		if (instance == null) {
-			instance = new ServerList();
+			log.debug("Instance is null, so updating instance...");
+			instance = FileServer.getServers();
 		}
-		instance.refresh(); 
 		return instance;
 	}
 
@@ -57,14 +47,6 @@ public class ServerList {
 				return true;
 		}
 		return false;
-	}
-
-	/**
-	 * This method refreshes the data in this Singleton
-	 */
-	private void refresh() {
-		log.debug("ServerList:refresh()");
-		FileManager.getInstance().retrieveServers(); 
 	}
 
 	public void add (Server server) {
@@ -88,7 +70,7 @@ public class ServerList {
 	public void save () {
 		log.debug("ServerList:save()");
 		log.info("Saving to file");
-		FileManager.getInstance().saveServers(this);
+		FileServer.saveServers(this);
 	}
 
 	/**

@@ -18,7 +18,7 @@ $(".app-button").click(function() {
 
 
 $("#createServer").on('click', function(e){
-    alert('clicked');
+    //alert('clicked');
 });
 
 $("body").on('contextmenu', function(e) {

@@ -24,6 +24,7 @@ public class LogManager {
 	 */
 
 	public static final Path ROOT_FOLDER = Paths.get(new File("").getAbsolutePath(), "log");
+	public static final int LOG_LEVEL = Settings.getInstance().getLogLevel();
 
 	private void logToFile(String msg) {
 
@@ -43,12 +44,13 @@ public class LogManager {
 
 		    out.close();
 			} catch (IOException e) {
+				//TODO: error
 			    e.printStackTrace();
 			}
 	}
 
 	private void logMessage(int level, String msg) {
-		if (level >= Settings.getInstance().getLogLevel())
+		if (level >= LOG_LEVEL)
 			logToFile(msg);
 	}
 

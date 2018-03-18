@@ -51,7 +51,7 @@ public class Browser extends Region {
 
         				if (newState == State.SUCCEEDED) {
         					try {
-        						preLoad();
+//        						preLoad();
         						load();
         					}
         					catch (Exception e) {
@@ -110,6 +110,9 @@ public class Browser extends Region {
 
 	private void loadServersInGUI() {
 		List<Server> srvLst = om.getServers();
+
+		if (srvLst == null)
+			return;
 
 		for (Server srv : srvLst) {
 			webEngine.executeScript(

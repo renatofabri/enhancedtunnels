@@ -119,7 +119,6 @@ function createCommandRow(server) {
 }
 
 function createTunnelTable(server) {
-	console.log("createTunnelTable");
     var quickAccessListDOM = document.getElementById("app-tunnel-quick-access-list");
     var table = "";
     for (var i = 0; i < server.tunnels.length; i++) {
@@ -152,7 +151,6 @@ function createTunnelTable(server) {
 }
 
 function createTunnelRow(server) {
-	console.log("createTunnelRow");
 	var table = createTunnelTable(server);
 	var tunnelRow = newTunnelListTemplate.replace('TABLE_ROWS', table);
 	tunnelRow = replaceAll(tunnelRow, 'SERVER_ID', server.id);

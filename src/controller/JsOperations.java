@@ -1,6 +1,6 @@
 package controller;
 
-import view.AppWindow;
+import view.ApplicationWindow;
 import view.Browser;
 import model.Server;
 import model.Tunnel;
@@ -26,7 +26,7 @@ public class JsOperations {
 
 	public void resetPuttyPath() {
 		log.debug("JsOperations:resetPuttyPath()");
-		AppWindow aw = new AppWindow();
+		ApplicationWindow aw = new ApplicationWindow();
 		aw.askPuttyLocation();
 		Browser.getInstance().refreshAbout();
 	}
