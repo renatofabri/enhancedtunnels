@@ -83,9 +83,9 @@ public class Browser extends Region {
 	}
 
 	private void load() {
+		loadJsApp();
 		loadAbout();
 		loadServersInGUI();
-		loadJsApp();
 	}
 
 	private void loadAbout() {

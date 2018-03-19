@@ -1,20 +1,33 @@
 package model.connection;
 
+import model.Server;
+import model.Tunnel;
+
 import com.jcraft.jsch.*;
 
 public class Shell {
 	
-	final private int DEFAULT_TIMEOUT = 30000; 
+	private static final int DEFAULT_TIMEOUT = 30000; 
 
-	public Session createSession(String username, String host, int port, String password) {
-		Session session = null;
+	/**
+	 * Responsible for creating a connection, by defining session, user and channel. 
+	 * @param username
+	 * @param host
+	 * @param port
+	 * @param password
+	 * @return
+	 */
+	public Connection createConnection(Server server) {
+		Connection connection = null;
 
 		try {
 
 			JSch jsch = new JSch();
 
-			session = jsch.getSession(username, host, port);
-			session.setPassword(password);
+			Session session = jsch.getSession(server.getUsername(), 
+											  server.getHost(), 
+											  server.getPort());
+			session.setPassword(server.getPassword());
 
 			session.setUserInfo(new User());
 
@@ -24,6 +37,8 @@ public class Shell {
 			channel.setInputStream(System.in);
 			channel.setOutputStream(System.out);
 
+			connection = new Connection(session, channel);
+
 //			channel.connect(DEFAULT_TIMEOUT);
 
 		}
@@ -32,26 +47,29 @@ public class Shell {
 			System.out.println(e);
 		}
 
-		return session;
+		return connection;
 	}
 
-	public Session setSessionTunnel(Session session, int lport, String host, int rport) {
+	public Connection setConnectionTunnel(Connection conn, Tunnel tunnel) {
 
 		try {
-			session.setPortForwardingL(lport, host, rport);
+			conn.getSession().setPortForwardingL(tunnel.getLocalPort(), 
+												 tunnel.getRemoteHost(), 
+												 tunnel.getRemotePort());
 		}
 		catch (Exception e) {
 			e.printStackTrace();
 			System.out.println(e);
 		}
 
-		return session;
+		return conn;
 	}
 
-	public boolean connectSession(Session session) {
+	public boolean connect(Connection conn) {
 
 		try {
-			session.connect(DEFAULT_TIMEOUT);
+			conn.getSession().connect(DEFAULT_TIMEOUT);
+
 			return true;
 		}
 		catch (Exception e) {
