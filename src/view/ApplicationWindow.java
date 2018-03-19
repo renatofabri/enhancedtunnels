@@ -46,9 +46,9 @@ public class ApplicationWindow extends Application {
     }
 
 	private void loadIcon(Stage stg) {
-		Path path = Paths.get(new File("").getAbsolutePath(), "data");
+		Path path = Paths.get(new File("").getAbsolutePath(), "resources");
         try {
-        	String imageURL = new File(path.toString(), "tunnel.png").toURI().toURL().toExternalForm();
+        	String imageURL = new File(path.toString(), "icon.png").toURI().toURL().toExternalForm();
         	stg.getIcons().add(new Image(imageURL));
         }
         catch (Exception e) {

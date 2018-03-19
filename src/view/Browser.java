@@ -51,7 +51,7 @@ public class Browser extends Region {
 
         				if (newState == State.SUCCEEDED) {
         					try {
-//        						preLoad();
+        						preLoad();
         						load();
         					}
         					catch (Exception e) {
@@ -61,9 +61,6 @@ public class Browser extends Region {
         			}
         		});
         
-        JSObject window = (JSObject) webEngine.executeScript("window");
-        window.setMember("app", new JsOperations());
-
         // handle alert() from JS
         webEngine.setOnAlert(
         		new EventHandler<WebEvent<String>>() {
@@ -81,9 +78,7 @@ public class Browser extends Region {
 
 	private void preLoad() {
 		if (!Settings.getInstance().isPuttyLocationSet()) {
-			webEngine.executeScript(
-					"alertModal('" + "PuTTY path was not informed. <br>Servers won&apos;t be launched." + "');"
-			);
+//			webEngine.executeScript("alertModal('" + "PuTTY path was not informed. <br>Servers won&apos;t be launched." + "');");
 		}
 	}
 

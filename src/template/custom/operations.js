@@ -48,7 +48,12 @@ function saveServerForm() {
     server.username = document.forms["serverForm"]["serverUsername"].value;
     server.password = document.forms["serverForm"]["serverPassword"].value;
 
-    app.saveServer(server);
+    try {
+    	app.saveServer(server);
+    }
+    catch (err) {
+    	alert(err);
+    }
 
     $('#app-server-modal').modal('hide');
     
@@ -106,7 +111,12 @@ function saveTunnelForm() {
     tunnel.username = document.forms["tunnelForm"]["tunnelUsername"].value;
     tunnel.password = document.forms["tunnelForm"]["tunnelPassword"].value;
 
-    app.saveTunnel(tunnel);
+    try {
+    	app.saveTunnel(tunnel);
+    }
+    catch(err) {
+    	alert(err);
+    }
 
     $('#app-tunnel-modal').modal('hide');
 
