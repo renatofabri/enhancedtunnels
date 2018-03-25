@@ -1,5 +1,11 @@
 package controller;
 
+
+/**
+ * Currently used to launch PuTTY, will soon be used to launch PuTTY, mRemoteNG or Xshell. 
+ * @author RENATOS
+ *
+ */
 public class CommandExecuter {
 
 	static LogManager log = new LogManager();
