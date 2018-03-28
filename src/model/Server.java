@@ -48,10 +48,14 @@ public class Server {
 		return this.id == srvObj.getId();
 	}
 
-	public String toJSON () {
+	public List<Tunnel> getTunnels() {
 		OperationManager om = new OperationManager();
+		return om.getTunnelsFromServer(this.id);
+	}
+
+	public String toJSON () {
 		
-		List<Tunnel> tnlLst = om.getTunnelsFromServer(this.id);
+		List<Tunnel> tnlLst = getTunnels();
 		
 		String tunnelListJSON = "";
 

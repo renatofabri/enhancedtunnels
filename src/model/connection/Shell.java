@@ -17,7 +17,7 @@ public class Shell {
 	 * @param password
 	 * @return
 	 */
-	public Connection createConnection(Server server) {
+	public static Connection createConnection(Server server) {
 		Connection connection = null;
 
 		try {
@@ -31,15 +31,15 @@ public class Shell {
 
 			session.setUserInfo(new User());
 
-//			session.connect(DEFAULT_TIMEOUT);
+			session.connect();
 
-			Channel channel = session.openChannel("shell");
-			channel.setInputStream(System.in);
-			channel.setOutputStream(System.out);
+//			Channel channel = session.openChannel("shell");
+//			channel.setInputStream(System.in);
+//			channel.setOutputStream(System.out);
 
-			connection = new Connection(session, channel);
+			connection = new Connection(session, null);
 
-//			channel.connect(DEFAULT_TIMEOUT);
+//			channel.connect();
 
 		}
 		catch (Exception e) {
@@ -50,7 +50,7 @@ public class Shell {
 		return connection;
 	}
 
-	public Connection setConnectionTunnel(Connection conn, Tunnel tunnel) {
+	public static Connection setConnectionTunnel(Connection conn, Tunnel tunnel) {
 
 		try {
 			conn.getSession().setPortForwardingL(tunnel.getLocalPort(), 
@@ -65,7 +65,7 @@ public class Shell {
 		return conn;
 	}
 
-	public boolean connect(Connection conn) {
+	public static boolean connect(Connection conn) {
 
 		try {
 			conn.getSession().connect(DEFAULT_TIMEOUT);

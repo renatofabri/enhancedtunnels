@@ -7,6 +7,7 @@ import java.nio.file.Paths;
 import controller.LogManager;
 import model.Settings;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -19,6 +20,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 public class ApplicationWindow extends Application {
 
@@ -43,6 +45,14 @@ public class ApplicationWindow extends Application {
 //        loadPuttyCheck();
         loadApp(primaryStage);
         primaryStage.show();
+
+        primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+        	@Override
+            public void handle(WindowEvent event) {
+                Platform.exit();
+                System.exit(0);
+            }
+        });
     }
 
 	private void loadIcon(Stage stg) {

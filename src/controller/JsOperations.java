@@ -4,6 +4,8 @@ import view.ApplicationWindow;
 import view.Browser;
 import model.Server;
 import model.Tunnel;
+import model.connection.Connection;
+import model.connection.TunnelOpener;
 import netscape.javascript.JSObject;
 
 
@@ -92,7 +94,9 @@ public class JsOperations {
 		log.debug("JsOperations:launchServer("+id+")");
 		Long srvId = Long.parseLong(id);
 		Server srv = om.getServer(srvId);
-		om.execute(om.getStringForPuTTY(srv));
+//		om.execute(om.getStringForPuTTY(srv));
+		log.debug("Calling TunnelOpener.openServerTunnels("+id+")");
+		Connection conn = TunnelOpener.openServerTunnels(srv);
 	}
 
 	public void launchTunnel(String id) {
