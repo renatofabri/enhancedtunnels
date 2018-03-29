@@ -113,6 +113,7 @@ function saveTunnelForm() {
 
     try {
     	app.saveTunnel(tunnel);
+    	location.reload();
     }
     catch(err) {
     	alert(err);

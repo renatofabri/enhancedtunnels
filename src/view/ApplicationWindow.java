@@ -42,7 +42,7 @@ public class ApplicationWindow extends Application {
         
         primaryStage.setTitle("EnhancedTunnels: a tunneling assistant");
         loadIcon(primaryStage);
-//        loadPuttyCheck();
+        loadPuttyCheck();
         loadApp(primaryStage);
         primaryStage.show();
 
