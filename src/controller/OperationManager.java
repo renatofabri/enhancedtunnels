@@ -39,12 +39,18 @@ public class OperationManager {
 	public String getConnectionParam(Tunnel tunnel) {
 		log.debug("OperationManager:getConnectionParam(tunnel)");
 		StringBuilder str = new StringBuilder();
-		str.append(String.format("%s@localhost -P %s -pw %s", tunnel.getUsername(),
+		str.append(String.format("%s@localhost -loghost \"%s\" -P %s -pw %s",
+															  tunnel.getUsername(),
+															  prepareWindowName(tunnel),
 															  tunnel.getLocalPort(),
 															  tunnel.getPassword()));
 		String connectionParam = str.toString();
 		log.info("connection param for tunnel: "+connectionParam);
 		return connectionParam;
+	}
+
+	private String prepareWindowName(Tunnel tunnel) {
+		return tunnel.getDisplayName() + " - " + tunnel.getLocalPort() + ":" + tunnel.getRemoteHost() + ":" + tunnel.getRemotePort();
 	}
 
 	/**
