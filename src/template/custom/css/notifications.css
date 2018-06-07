@@ -1,0 +1,15 @@
+.notifications .notification {
+	font-size: 20px;
+}
+.notifications .notification.success {
+	color: green;
+}
+.notifications .notification.info {
+	color: blue;
+}
+.notifications .notification.warning {
+	color: orange;
+}
+.notifications .notification.error {
+	color: red;
+}

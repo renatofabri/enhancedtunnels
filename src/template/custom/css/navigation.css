@@ -1,0 +1,32 @@
+ul.navigation {
+	display: inline-block;
+	height: 50px;
+	padding: 5px;
+}
+ul.navigation .glyphicon {
+	top: 6px;
+	font-size: 25px;
+}
+ul.navigation * {
+	display: inline-block;
+}
+li.search-box * {
+	display: inline-block;
+}
+li.search-box .glyphicon {
+}
+li.search-box .glyphicon:hover {
+	cursor: pointer;
+}
+li.search-input input {
+	border: none;
+	font-size: 21px;
+	display: none;
+	background-color: #333333;
+}
+li.search-input.active input {
+	display: inline-block;
+}
+li.search-input input:focus {
+	outline: none;
+}

@@ -1,398 +1,351 @@
 <!DOCTYPE html>
 <html lang='en'>
-    <head>
-        <title>Tunneller</title>
-        <link href="libs/reset/reset.css" rel="stylesheet">
-        <link href="libs/bootstrap/bootstrap.css" rel="stylesheet">
-        <link href="custom/style.css" rel="stylesheet">
-    </head>
-    <body>
-
-        <ul code="" id="serverContextMenu" class="dropdown-menu" role="menu" style="display: none;">
-            <li onclick="launchFromCM('server')"><a href="#">Launch</a></li>
-            <li onclick="viewTunnelsFromCM()"><a href="#">View Tunnels</a></li>
-            <li onclick="editFromCM('server')"><a href="#">Edit</a></li>
-            <li onclick="deleteFromCM('server')" class="delete"><a href="#">Delete</a></li>
-        </ul>
-
-        <ul id="tunnelContextMenu" class="dropdown-menu" role="menu" style="display: none;">
-        	<li onclick="launchFromCM('tunnel')" id="cm-tunnel-launch"><a href="#">Launch</a></li>
-            <li onclick="editFromCM('tunnel')"><a href="#">Edit</a></li>
-            <li onclick="deleteFromCM('tunnel')" class="delete"><a href="#">Delete</a></li>
-        </ul>
-
-        <div class="container-fluid">
-
-            <!-- main container -->
-            <div id="app-window-main" class="row app-window">
-                <!-- main row - covers complete screen -->
-                
-                <div class="col-sm-1 app-sidebar">
-                    <!-- sidebar -->
-                    <div class="container-fluid">
-                        <ul class="app-sidebar-menu">
-                            <li class="app-button app-active-button">
-                                <a href="#">
-                                    <span class="glyphicon glyphicon-hdd"></span>
-                                    <span>Servers</span>
-                                </a>
-                            </li>
-                            <li class="app-button app-last-button">
-                                <a href="#">
-                                    <span class="glyphicon glyphicon-info-sign"></span>
-                                    <span>About</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="col-sm-11 app-main">
-                    <!-- main application view -->
-                    <div class="container-fluid app-server-view" id="app-application">
-                        <div class="row">
-                            <h2>
-                                Click in a server to view details, or 
-                                <button type="button" data-toggle="modal" data-target="#app-server-modal" id="createServer" class="btn btn-primary">Add Server
-                                </button>
-                                <!--or 
-                                <button id="startAllServers" class="btn btn-primary" onclick="alertModal('Not implemented yet!')">Launch All Servers
-                                    <span class="glyphicon glyphicon-play"></span>
-                                </button>-->
-                            </h2>
-                        </div>
-
-                        <!-- alert modal -->
-                        <div class="modal fade" id="app-alert-modal" tabindex="-1" role="dialog" aria-labelledby="app-alert-title">
-                            <div class="modal-dialog" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                        <h4 class="modal-title" id="app-alert-title">{TITLE}</h4>
-                                    </div>
-                                    <div class="modal-body">
-                                        <h3 id="app-alert-text">{TEXT}</h3>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button data-dismiss="modal" class="btn btn-default" id="app-alert-close">{CLOSE}</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- confirmation modal -->
-                        <div class="modal fade" id="app-confirmation-modal" tabindex="-1" role="dialog" aria-labelledby="confirmation-modal-title">
-                            <div class="modal-dialog" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                        <h4 class="modal-title" id="confirmation-modal-title">Are you sure?</h4>
-                                    </div>
-                                    <div class="modal-body">
-                                        <h3 id="app-confirmation-text">You are trying to delete the {TYPE} "{TYPE_NAME}". Once done, it can't be undone. Are you sure?</h3>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button data-dismiss="modal" class="btn btn-default">Let me think again...</button>
-                                        <button onclick="confirmDeletion()" class="btn btn-danger">Just do it!</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- tunnel list modal -->
-                        <div class="modal fade" id="app-tunnel-list-modal" tabindex="-1" role="dialog" aria-labelledby="app-tunnel-list-modal-title">
-                            <div class="modal-dialog modal-lg" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                        <h4 class="modal-title" id="app-tunnel-list-modal-title">Tunnels of server {SERVER_NAME}</h4>
-                                    </div>
-                                    <div class="modal-body">
-                                        <ul class="nav nav-tabs" id="tunnels-tab" role="tablist">
-                                            <li class="active" role="presentation">
-                                                <a aria-controls="list" aria-expanded="true" data-toggle="tab" href="#tunnel-list-tab" id="home-tab" role="tab">List</a>
-                                            </li>
-                                            <li class="" role="presentation">
-                                                <a aria-controls="form" aria-expanded="false" data-toggle="tab" href="#tunnel-form-tab" id="form-tab" role="tab">Tunnel Form</a>
-                                            </li>
-                                        </ul>
-                                        <div class="tab-content" id="app-tab-content">
-                                            <div aria-labelledby="home-tab" class="tab-pane fade active in" id="tunnel-list-tab" role="tabpanel">
-                                                <div id="app-tunnel-list" class=""  style="margin-top: 10px;">
-<!--                                                <div id="server1tunnels" class="serverXtunnels" style="display:none;">
-                                                        <div class="row">
-                                                            <div class="col-md-1">
-                                                                Y
-                                                            </div>
-                                                            <div id="tunnelName1" class="col-md-2">
-                                                                Tunnel Name!
-                                                            </div>
-                                                            <div class="col-md-1">
-                                                                Local
-                                                            </div>
-                                                            <div class="col-md-2">
-                                                                Remote host
-                                                            </div>
-                                                            <div class="col-md-1">
-                                                                PortX
-                                                            </div>
-                                                            <div class="col-md-2">
-                                                                usernameforthis
-                                                            </div>
-                                                            <div class="col-md-2">
-                                                                description for this
-                                                            </div>
-                                                            <div class="col-md-1">
-                                                                <button onclick="showConfirmationModal('tunnel', 1)" class="btn btn-danger btn-xs pull-right"><span class="glyphicon glyphicon-trash"></span></button>
-                                                            </div>
-                                                        </div>
-                                                        <div class="row">
-                                                            <div class="col-md-1">
-                                                                Y
-                                                            </div>
-                                                            <div id="tunnelName2" class="col-md-2">
-                                                                Tunnel Name!
-                                                            </div>
-                                                            <div class="col-md-1">
-                                                                Local
-                                                            </div>
-                                                            <div class="col-md-2">
-                                                                Remote host
-                                                            </div>
-                                                            <div class="col-md-1">
-                                                                PortX
-                                                            </div>
-                                                            <div class="col-md-2">
-                                                                usernameforthis
-                                                            </div>
-                                                            <div class="col-md-2">
-                                                                description for this
-                                                            </div>
-                                                            <div class="col-md-1">
-                                                                <button onclick="showConfirmationModal('tunnel', 2)" class="btn btn-danger btn-xs pull-right"><span class="glyphicon glyphicon-trash"></span></button>
-                                                            </div>
-                                                        </div>
-                                                        <div class="row">
-                                                            <div class="col-md-1">
-                                                                N
-                                                            </div>
-                                                            <div id="tunnelName3" class="col-md-2">
-                                                                Tunnel Name!
-                                                            </div>
-                                                            <div class="col-md-1">
-                                                                Local
-                                                            </div>
-                                                            <div class="col-md-2">
-                                                                Remote host
-                                                            </div>
-                                                            <div class="col-md-1">
-                                                                PortX
-                                                            </div>
-                                                            <div class="col-md-2">
-                                                                usernameforthis
-                                                            </div>
-                                                            <div class="col-md-2">
-                                                                description for this
-                                                            </div>
-                                                            <div class="col-md-1">
-                                                                <button onclick="showConfirmationModal('tunnel', 3)" class="btn btn-danger btn-xs pull-right"><span class="glyphicon glyphicon-trash"></span></button>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div id="server2tunnels" class="serverXtunnels" style="display:none;">
-                                                        Content
-                                                    </div>-->
-                                                </div>
-                                            </div>
-                                            <div aria-labelledby="form-tab" class="tab-pane fade" id="tunnel-form-tab" role="tabpanel">
-                                                <form id="tunnelForm">
-                                                    <div class="row" style="margin-top: 10px;">
-                                                        <div class="form-group col-md-12">
-                                                            <label for="tunnelName">Tunnel display name</label>
-                                                            <input type="text" class="form-control" id="tunnelName" placeholder="" required/>
-                                                            <input type="hidden" id="tunnelId" placeholder="" required/>
-                                                            <input type="hidden" id="tunnelServerId" placeholder="" required/>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="form-group col-md-3">
-                                                            <label for="tunnelLocalPort">Local port</label>
-                                                            <input type="text" class="form-control" id="tunnelLocalPort" placeholder=""/>
-                                                        </div>
-                                                        <div class="form-group col-md-6">
-                                                            <label for="tunnelRemoteHost"> Remote host</label>
-                                                            <input type="text" class="form-control" id="tunnelRemoteHost" placeholder="" required/>
-                                                        </div>
-                                                        <div class="form-group col-md-3">
-                                                            <label for="tunnelRemotePort">Remote port</label>
-                                                            <input type="text" class="form-control" id="tunnelRemotePort" placeholder=""/>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="form-group col-md-1">
-                                                            <label for="tunnelIsLaunchable">Launchable?</label>
-                                                            <input type="checkbox" class="" id="tunnelLaunchable">
-                                                        </div>
-                                                        <div class="form-group col-md-offset-1 col-md-4 launchableCredentials" style="display: none;">
-                                                            <label for="tunnelUsername">Username</label>
-                                                            <input type="text" class="form-control" id="tunnelUsername" placeholder="" required/>
-                                                        </div>
-                                                        <div class="form-group col-md-4 launchableCredentials" style="display: none;">
-                                                            <label for="tunnelPassword">Password</label>
-                                                            <input type="text" class="form-control" id="tunnelPassword" placeholder="" required/>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="form-group col-md-12">
-                                                            <label for="tunnelDescription">Short description</label>
-                                                            <input type="text" class="form-control" id="tunnelDescription" placeholder="" required/>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="col-md-1 col-md-offset-11">
-                                                            <button onclick="saveTunnelForm()" class="btn btn-primary pull-right">Create</button>
-                                                        </div>
-                                                    </div>
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button data-dismiss="modal" class="btn btn-default">Close</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- server operation modal -->
-                        <div class="modal fade" id="app-server-modal" tabindex="-1" role="dialog" aria-labelledby="server-modal-title">
-                            <div class="modal-dialog" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                        <h4 class="modal-title" id="server-modal-title">Server</h4>
-                                    </div>
-                                    <div class="modal-body">
-                                        <form id="serverForm">
-                                            <div class="row">
-                                                <div class="form-group col-md-5">
-                                                    <label for="serverName">Display name</label>
-                                                    <input type="text" class="form-control" id="serverName" placeholder="" required/>
-                                                    <input type="hidden" id="serverId" placeholder="" required/>
-                                                </div>
-                                                <div class="form-group col-md-5">
-                                                    <label for="serverHost">Host</label>
-                                                    <input type="text" class="form-control" id="serverHost" placeholder="" required/>
-                                                </div>
-                                                <div class="form-group col-md-2">
-                                                    <label for="serverPort">Port</label>
-                                                    <input type="text" class="form-control" id="serverPort" placeholder=""/>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="form-group col-md-4">
-                                                    <label for="serverUsername">Username</label>
-                                                    <input type="text" class="form-control" id="serverUsername" placeholder="" required/>
-                                                </div>
-                                                <div class="form-group col-md-4">
-                                                    <label for="serverPassword">Password</label>
-                                                    <input type="text" class="form-control" id="serverPassword" placeholder="" required/>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <div style="margin-top: 25px">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </form>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button data-dismiss="modal" class="btn btn-default">Cancel</button>
-                                        <button onclick="saveServerForm()" class="btn btn-primary">Create</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- server table div -->
-                        <div id="app-main-view" class="row app-server-table">
-<!-- mockup                 <div class="row">
-                                <div id="server1">
-                                    <div class="col-md-1 play">
-                                        <button class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-play"></span></button>
-                                    </div>
-                                    <div id="serverName1" class="col-md-4">
-                                        Server name
-                                    </div>
-                                    <div class="col-md-2">
-                                        username
-                                    </div>
-                                    <div class="col-md-2">
-                                        host
-                                    </div>
-                                    <div class="col-md-1">
-                                        port
-                                    </div>
-                                    <div class="col-md-2 commands">
-                                        <button onclick="loadTunnelsModal(1)" class="btn btn-default btn-xs" style="margin-top: -4px;"><span class="glyphicon glyphicon-eye-open"></span>  view tunnels</button>
-                                        <button onclick="showConfirmationModal('server', 1)" class="btn btn-danger btn-xs pull-right" style="margin-top: 1px;"><span class="glyphicon glyphicon-trash"></span></button>
-                                    </div>
-                                </div>
-                            </div>-->
-                        </div>
-                        <div class="row app-tunnel-quick-access">
-                            <h4>Quick Access</h4>
-                            <ul id="app-tunnel-quick-access-list">
-<!-- mockup                     <li class="playable">
-                                    <span><span class="glyphicon glyphicon-play"></span> Name</span>
-                                    <span>aaabbb00</span>
-                                    <span>33000</span>
-                                    <span>On parent</span>
-                                </li>
-                                 <li class="playable">
-                                    <span><span class="glyphicon glyphicon-play"></span> Name</span>
-                                    <span>aaabbb00aaaaaaaaaaaaaa</span>
-                                    <span>33000</span>
-                                    <span>On parent</span>
-                                </li>
-                                <li>
-                                    <span>Name</span>
-                                    <span>aaabbb00</span>
-                                    <span>33000</span>
-                                    <span>On parent</span>
-                                </li>-->
-                            </ul>
-                        </div>
-                    </div>
-                    <div id="app-about" style="display: none;">
-                        <div class="row">
-                            <h3>Thanks for using!</h3>
-                            <p>Follow the project @ github.com/rzrn/enhancedtunnels</p>
-                            <p>Share your thoughts! Email me: renato_sfabri@hotmail.com</p>
-                        </div>
-                        <div class="row">
-                        	<h4>Current settings</h4>
-                            <p>Path to PuTTY: <span id="app-pathToPutty"></span> <button onclick="app.resetPuttyPath()" class="btn btn-xs btn-default" style="margin-top: -4px;">Change location</button></p>
-                            <p>Log level: <span id="app-logLevel"></span></p>
-                            <p>Log location: <span id="app-logPath"></span></p>
-                            <p>In case you're big fan of Batch files, <button onclick="#" class="btn btn-xs btn-default" style="margin-top: -4px;">Generate connection String</button></p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+  <head>
+    <title>Tunneller</title>
+      <link href="libs/reset/reset.css" rel="stylesheet">
+      <link href="libs/bootstrap/bootstrap.css" rel="stylesheet">
+      <link href="custom/style.css" rel="stylesheet">
+      <link href="custom/css/notifications.css" rel="stylesheet">
+      <link href="custom/css/navigation.css" rel="stylesheet">
+      <link href="custom/css/content.css" rel="stylesheet">
+  </head>
+  <body>
+    <ul code="" id="serverContextMenu" class="dropdown-menu" role="menu" style="display: none;">
+      <li onclick="launchFromCM('server')"><a href="#">Launch</a></li>
+      <li onclick="viewTunnelsFromCM()"><a href="#">View Tunnels</a></li>
+      <li onclick="editFromCM('server')"><a href="#">Edit</a></li>
+      <li onclick="deleteFromCM('server')" class="delete"><a href="#">Delete</a></li>
+    </ul>
+    <ul id="tunnelContextMenu" class="dropdown-menu" role="menu" style="display: none;">
+      <li onclick="launchFromCM('tunnel')" id="cm-tunnel-launch"><a href="#">Launch</a></li>
+      <li onclick="editFromCM('tunnel')"><a href="#">Edit</a></li>
+      <li onclick="deleteFromCM('tunnel')" class="delete"><a href="#">Delete</a></li>
+    </ul>
+    <div class="container-fluid">
+      <!-- main container -->
+      <div id="app-window-main" class="row app-window">
+        <!-- main row - covers complete screen -->
+        <div class="col-sm-1 app-sidebar">
+          <!-- sidebar -->
+          <div class="container-fluid">
+            <ul class="app-sidebar-menu">
+              <!--<li class="app-button app-active-button"><a href="#"><span class="glyphicon glyphicon-hdd"></span><span>Servers</span></a></li>
+              <li class="app-button app-middle-button"><a href="#"><span class="glyphicon glyphicon-info-sign"></span><span>About</span></a></li>-->
+              <li class="app-button app-button active"><a href="#dashboard"><span class="glyphicon glyphicon-home"></span><span>Dashboard</span></a></li>
+              <li class="app-button"><a href="#unixops"><span class="glyphicon glyphicon-cloud"></span><span>Unix Ops</span></a></li>
+              <li class="app-button"><a href="#servers"><span class="glyphicon glyphicon-eye-open"></span><span>Servers</span></a></li>
+              <li class="app-button app-last-button"><a href="#about"><span class="glyphicon glyphicon-info-sign"></span><span>About</span></a></li>
+            </ul>
+          </div>
         </div>
-
-        <script type="application/javascript" src="libs/jquery/jquery-3.2.1.min.js"></script>
-        <script type="application/javascript" src="libs/bootstrap/bootstrap.min.js"></script>
-        <script type="application/javascript" src="custom/events.js"></script>
-        <script type="application/javascript" src="custom/script.js"></script>
-        <script type="application/javascript" src="custom/operations.js"></script>
-    </body>
+        <div class="col-sm-11 app-main">
+          <!-- main application view -->
+          <div class="container-fluid app-server-view" id="app-application">
+            <div class="row">
+              <div class="content-header">
+                <!-- @TODO auto focus on CTRL+F -->
+                <ul class="navigation">
+                  <li class="search-box" onclick="toggleSearchBox()"><span class="glyphicon glyphicon-search"></span></li>
+                  <li class="search-input"><input type="text" placeholder="Search for..."></li>
+                </ul>
+                <ul class="navigation pull-right">
+                  <li>No active tunnels</li>
+                </ul>
+              </div>
+              <div class="notifications">
+                <div class="notification success">
+                    This is dummy success notification
+                </div>
+                <div class="notification info">
+                    This is dummy info notification
+                </div>
+                <div class="notification warning">
+                    This is dummy warning notification
+                </div>
+                <div class="notification error">
+                    This is dummy error notification
+                </div>
+              </div>
+              <!--<h2>
+                  Click in a server to view details, or 
+                  <button type="button" data-toggle="modal" data-target="#app-server-modal" id="createServer" class="btn btn-primary">Add Server
+                  </button>
+                  !--or 
+                  <button id="startAllServers" class="btn btn-primary" onclick="alertModal('Not implemented yet!')">Launch All Servers
+                      <span class="glyphicon glyphicon-play"></span>
+                  </button>--
+              </h2>-->
+            </div>
+            <!-- alert modal -->
+            <div class="modal fade" id="app-alert-modal" tabindex="-1" role="dialog" aria-labelledby="app-alert-title">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title" id="app-alert-title">{TITLE}</h4>
+                  </div>
+                  <div class="modal-body">
+                    <h3 id="app-alert-text">{TEXT}</h3>
+                  </div>
+                  <div class="modal-footer">
+                    <button data-dismiss="modal" class="btn btn-default" id="app-alert-close">{CLOSE}</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- confirmation modal -->
+            <div class="modal fade" id="app-confirmation-modal" tabindex="-1" role="dialog" aria-labelledby="confirmation-modal-title">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="confirmation-modal-title">Are you sure?</h4>
+                  </div>
+                  <div class="modal-body">
+                    <h3 id="app-confirmation-text">You are trying to delete the {TYPE} "{TYPE_NAME}". Once done, it can't be undone. Are you sure?</h3>
+                  </div>
+                  <div class="modal-footer">
+                    <button data-dismiss="modal" class="btn btn-default">Let me think again...</button>
+                    <button onclick="confirmDeletion()" class="btn btn-danger">Just do it!</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- tunnel list modal -->
+            <div class="modal fade" id="app-tunnel-list-modal" tabindex="-1" role="dialog" aria-labelledby="app-tunnel-list-modal-title">
+              <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="app-tunnel-list-modal-title">Tunnels of server {SERVER_NAME}</h4>
+                  </div>
+                  <div class="modal-body">
+                    <ul class="nav nav-tabs" id="tunnels-tab" role="tablist">
+                      <li class="active" role="presentation"><a aria-controls="list" aria-expanded="true" data-toggle="tab" href="#tunnel-list-tab" id="home-tab" role="tab">List</a></li>
+                      <li class="" role="presentation"><a aria-controls="form" aria-expanded="false" data-toggle="tab" href="#tunnel-form-tab" id="form-tab" role="tab">Tunnel Form</a></li>
+                    </ul>
+                    <div class="tab-content" id="app-tab-content">
+                      <div aria-labelledby="home-tab" class="tab-pane fade active in" id="tunnel-list-tab" role="tabpanel">
+                        <div id="app-tunnel-list" class=""  style="margin-top: 10px;">
+                          <!--<div id="server1tunnels" class="serverXtunnels" style="display:none;">
+                            <div class="row">
+                              <div class="col-md-1">Y</div>
+                              <div id="tunnelName1" class="col-md-2">Tunnel Name!</div>
+                              <div class="col-md-1">Local</div>
+                              <div class="col-md-2">Remote host</div>
+                              <div class="col-md-1">PortX</div>
+                              <div class="col-md-2">usernameforthis</div>
+                              <div class="col-md-2">description for this</div>
+                              <div class="col-md-1">
+                                <button onclick="showConfirmationModal('tunnel', 1)" class="btn btn-danger btn-xs pull-right"><span class="glyphicon glyphicon-trash"></span></button>
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="col-md-1">Y</div>
+                              <div id="tunnelName2" class="col-md-2">Tunnel Name!</div>
+                              <div class="col-md-1">Local</div>
+                              <div class="col-md-2">Remote host</div>
+                              <div class="col-md-1">PortX</div>
+                              <div class="col-md-2">usernameforthis</div>
+                              <div class="col-md-2">description for this</div>
+                              <div class="col-md-1">
+                                <button onclick="showConfirmationModal('tunnel', 2)" class="btn btn-danger btn-xs pull-right"><span class="glyphicon glyphicon-trash"></span></button>
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="col-md-1">N</div>
+                              <div id="tunnelName3" class="col-md-2">Tunnel Name!</div>
+                              <div class="col-md-1">Local</div>
+                              <div class="col-md-2">Remote host</div>
+                              <div class="col-md-1">PortX</div>
+                              <div class="col-md-2">usernameforthis</div>
+                              <div class="col-md-2">description for this</div>
+                              <div class="col-md-1">
+                                <button onclick="showConfirmationModal('tunnel', 3)" class="btn btn-danger btn-xs pull-right"><span class="glyphicon glyphicon-trash"></span></button>
+                              </div>
+                            </div>
+                          </div>
+                          <div id="server2tunnels" class="serverXtunnels" style="display:none;">
+                              Content
+                          </div>-->
+                        </div>
+                      </div>
+                      <div aria-labelledby="form-tab" class="tab-pane fade" id="tunnel-form-tab" role="tabpanel">
+                        <form id="tunnelForm">
+                          <div class="row" style="margin-top: 10px;">
+                            <div class="form-group col-md-12">
+                              <label for="tunnelName">Tunnel display name</label>
+                              <input type="text" class="form-control" id="tunnelName" placeholder="" required/>
+                              <input type="hidden" id="tunnelId" placeholder="" required/>
+                              <input type="hidden" id="tunnelServerId" placeholder="" required/>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="form-group col-md-3">
+                              <label for="tunnelLocalPort">Local port</label>
+                              <input type="text" class="form-control" id="tunnelLocalPort" placeholder=""/>
+                            </div>
+                            <div class="form-group col-md-6">
+                              <label for="tunnelRemoteHost"> Remote host</label>
+                              <input type="text" class="form-control" id="tunnelRemoteHost" placeholder="" required/>
+                            </div>
+                            <div class="form-group col-md-3">
+                              <label for="tunnelRemotePort">Remote port</label>
+                              <input type="text" class="form-control" id="tunnelRemotePort" placeholder=""/>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="form-group col-md-1">
+                              <label for="tunnelIsLaunchable">Launchable?</label>
+                              <input type="checkbox" class="" id="tunnelLaunchable">
+                            </div>
+                            <div class="form-group col-md-offset-1 col-md-4 launchableCredentials" style="display: none;">
+                              <label for="tunnelUsername">Username</label>
+                              <input type="text" class="form-control" id="tunnelUsername" placeholder="" required/>
+                            </div>
+                            <div class="form-group col-md-4 launchableCredentials" style="display: none;">
+                              <label for="tunnelPassword">Password</label>
+                              <input type="text" class="form-control" id="tunnelPassword" placeholder="" required/>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="form-group col-md-12">
+                              <label for="tunnelDescription">Short description</label>
+                              <input type="text" class="form-control" id="tunnelDescription" placeholder="" required/>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-md-1 col-md-offset-11">
+                              <button onclick="saveTunnelForm()" class="btn btn-primary pull-right">Create</button>
+                            </div>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="modal-footer">
+                    <button data-dismiss="modal" class="btn btn-default">Close</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- server operation modal -->
+            <div class="modal fade" id="app-server-modal" tabindex="-1" role="dialog" aria-labelledby="server-modal-title">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="server-modal-title">Server</h4>
+                  </div>
+                  <div class="modal-body">
+                    <form id="serverForm">
+                      <div class="row">
+                        <div class="form-group col-md-5">
+                          <label for="serverName">Display name</label>
+                          <input type="text" class="form-control" id="serverName" placeholder="" required/>
+                          <input type="hidden" id="serverId" placeholder="" required/>
+                        </div>
+                        <div class="form-group col-md-5">
+                          <label for="serverHost">Host</label>
+                          <input type="text" class="form-control" id="serverHost" placeholder="" required/>
+                        </div>
+                        <div class="form-group col-md-2">
+                          <label for="serverPort">Port</label>
+                          <input type="text" class="form-control" id="serverPort" placeholder=""/>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="form-group col-md-4">
+                          <label for="serverUsername">Username</label>
+                          <input type="text" class="form-control" id="serverUsername" placeholder="" required/>
+                        </div>
+                        <div class="form-group col-md-4">
+                          <label for="serverPassword">Password</label>
+                          <input type="text" class="form-control" id="serverPassword" placeholder="" required/>
+                        </div>
+                        <div class="col-md-4">
+                          <div style="margin-top: 25px">
+                          </div>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                  <div class="modal-footer">
+                      <button data-dismiss="modal" class="btn btn-default">Cancel</button>
+                      <button onclick="saveServerForm()" class="btn btn-primary">Create</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- server table div -->
+            <div id="app-main-view" class="row app-server-table">
+              <!-- mockup <div class="row">
+                <div id="server1">
+                  <div class="col-md-1 play"><button class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-play"></span></button></div>
+                  <div id="serverName1" class="col-md-4">Server name</div>
+                  <div class="col-md-2">username</div>
+                  <div class="col-md-2">host</div>
+                  <div class="col-md-1">port</div>
+                  <div class="col-md-2 commands">
+                    <button onclick="loadTunnelsModal(1)" class="btn btn-default btn-xs" style="margin-top: -4px;"><span class="glyphicon glyphicon-eye-open"></span>  view tunnels</button>
+                    <button onclick="showConfirmationModal('server', 1)" class="btn btn-danger btn-xs pull-right" style="margin-top: 1px;"><span  class="glyphicon glyphicon-trash"></span></button>
+                  </div>
+                </div>
+              </div>-->
+            </div>
+            <div class="row app-tunnel-quick-access">
+              <h4>Quick Access</h4>
+                <ul id="app-tunnel-quick-access-list">
+                  <!-- mockup <li class="playable">
+                    <span><span class="glyphicon glyphicon-play"></span> Name</span>
+                    <span>aaabbb00</span>
+                    <span>33000</span>
+                    <span>On parent</span>
+                  </li>
+                  <li class="playable">
+                    <span><span class="glyphicon glyphicon-play"></span> Name</span>
+                    <span>aaabbb00aaaaaaaaaaaaaa</span>
+                    <span>33000</span>
+                    <span>On parent</span>
+                  </li>
+                  <li>
+                    <span>Name</span>
+                    <span>aaabbb00</span>
+                    <span>33000</span>
+                    <span>On parent</span>
+                  </li>-->
+                </ul>
+            </div>
+          </div>
+          <div id="app-about" style="display: none;">
+            <div class="row">
+              <h3>Thanks for using!</h3>
+              <p>Follow the project @ github.com/rzrn/enhancedtunnels</p>
+              <p>Share your thoughts! Email me: renato_sfabri@hotmail.com</p>
+            </div>
+            <div class="row">
+              <h4>Current settings</h4>
+              <p>Path to PuTTY: 
+                <span id="app-pathToPutty"></span> 
+                <button onclick="app.resetPuttyPath()" class="btn btn-xs btn-default" style="margin-top: -4px;">Change location</button>
+              </p>
+              <p>Log level: <span id="app-logLevel"></span></p>
+              <p>Log location: <span id="app-logPath"></span></p>
+              <!--<p>In case you're big fan of Batch files, 
+                <button onclick="#" class="btn btn-xs btn-default" style="margin-top: -4px;">Generate connection String</button>
+              </p>-->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script type="application/javascript" src="libs/jquery/jquery-3.2.1.min.js"></script>
+    <script type="application/javascript" src="libs/bootstrap/bootstrap.min.js"></script>
+    <script type="application/javascript" src="custom/events.js"></script>
+    <script type="application/javascript" src="custom/script.js"></script>
+    <script type="application/javascript" src="custom/operations.js"></script>
+    <script type="application/javascript" src="custom/js/searcher.js"></script>
+  </body>
 </html>

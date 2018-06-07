@@ -50,7 +50,7 @@ public class OperationManager {
 	}
 
 	private String prepareWindowName(Tunnel tunnel) {
-		return tunnel.getDisplayName() + " - " + tunnel.getLocalPort() + ":" + tunnel.getRemoteHost() + ":" + tunnel.getRemotePort();
+		return tunnel.getDisplayName() + " [" + tunnel.getLocalPort() + ":" + tunnel.getRemoteHost() + ":" + tunnel.getRemotePort() + "]";
 	}
 
 	/**

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang='en'>
+    <head>
+        <title>Tunneller</title>
+        <link href="libs/reset/reset.css" rel="stylesheet">
+        <link href="libs/bootstrap/bootstrap.css" rel="stylesheet">
+
+        <link href="custom/css/notifications.css" rel="stylesheet">
+        <link href="custom/css/sidebar.css" rel="stylesheet">
+        <link href="custom/css/navigation.css" rel="stylesheet">
+        <link href="custom/css/content.css" rel="stylesheet">
+
+        <!-- MUSA https://colorlib.com/polygon/adminator/index.html -->
+    </head>
+    <body>
+
+        <!-- vai ta aqui a parada antiga bonitona -->
+        <div class="sidebar col-sm-2">
+            <div class="sidebar-logo">
+                ET>
+            </div>
+            <ul>
+                <li><a href="#dashboard"><span class="glyphicon glyphicon-home"></span> Dashboard</a></li>
+                <li><a href="#unixops"><span class="glyphicon glyphicon-cloud"></span> Unix Ops</a></li>
+                <li><a href="#servers"><span class="glyphicon glyphicon-eye-open"></span> Servers</a></li>
+                <li><a href="#about"><span class="glyphicon glyphicon-info-sign"></span> About</a></li>
+            </ul>
+        </div>
+        <div class="page-content col-sm-10">
+            <div class="content-header">
+                <!-- @TODO auto focus on CTRL+F -->
+                <ul class="navigation">
+                    <li><span class="glyphicon glyphicon-menu-hamburger"></li>
+                    <li class="search-box" onclick="toggleSearchBox()"><span class="glyphicon glyphicon-search"></span></li>
+                    <li class="search-input"><input type="text" placeholder="Search for..."></li>
+                </ul>
+                <ul class="navigation pull-right">
+                    <li>No active tunnels</li>
+                </ul>
+            </div>
+
+            <div class="notifications">
+                <div class="notification success">
+                    This is dummy notification
+                </div>
+                <div class="notification info">
+                    This is dummy notification
+                </div>
+                <div class="notification warning">
+                    This is dummy notification
+                </div>
+                <div class="notification error">
+                    This is dummy notification
+                </div>
+            </div>
+
+            <div class="dashboard">
+            </div>
+
+            <div class="unixops">
+            </div>
+
+            <div class="servers">
+            </div>
+
+            <div class="about">
+            </div>
+
+        </div>
+        <script type="application/javascript" src="libs/jquery/jquery-3.2.1.min.js"></script>
+        <script type="application/javascript" src="libs/bootstrap/bootstrap.min.js"></script>
+        <script type="application/javascript" src="custom/js/searcher.js"></script>
+    </body>
+</html>

@@ -8,10 +8,10 @@ $(document).on('show.bs.modal', '.modal', function () {
 
 // handles the change of screen
 $(".app-button").click(function() {
-	if ($(this).hasClass('app-active-button'))
+	if ($(this).hasClass('active'))
 		return;
-	$(this).parent().find('.app-active-button').removeClass('app-active-button').addClass('app-last-button');
-	$(this).removeClass('app-last-button').addClass('app-active-button');
+	$(this).parent().find('.active').removeClass('active');
+	$(this).addClass('active');
     $("#app-about").toggle();
     $("#app-application").toggle();
 });

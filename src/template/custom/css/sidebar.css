@@ -1,0 +1,24 @@
+.sidebar {
+	text-overflow: ellipsis;
+}
+.sidebar ul {
+	font-size: 20px;
+}
+.sidebar ul li {
+	padding: 5px;
+}
+.sidebar ul li a {
+	color: black;
+}
+.sidebar ul li a .glyphicon {
+	top: 2px;
+}
+.sidebar ul li a:hover {
+	text-decoration: none;
+	color: gray;
+}
+
+.sidebar .sidebar-logo {
+	height: 50px;
+	font-size: 24px;
+}

@@ -48,15 +48,27 @@ body {
 .app-sidebar .container-fluid {
     padding: 0;
     height: 100%;
-    box-shadow: -2px 155px 15px 0 #0A0A0A inset;
+    /*box-shadow: -2px 155px 15px 0 #0A0A0A inset;
     -webkit-box-shadow: -2px 155px 15px 0 #0A0A0A inset;
-    -moz-box-shadow: -2px 155px 15px 0 #0A0A0A inset;
+    -moz-box-shadow: -2px 155px 15px 0 #0A0A0A inset;*/
+    box-shadow: -2px 312px 15px 0 #0A0A0A inset;
+    -webkit-box-shadow: -2px 312px 15px 0 #0A0A0A inset;
+    -moz-box-shadow: -2px 312px 15px 0 #0A0A0A inset;
 }
 
 .app-sidebar .app-sidebar-shadow {
     box-shadow: -2px 2px 15px 0 #0A0A0A inset;
     -webkit-box-shadow: -2px 2px 15px 0 #0A0A0A inset;
     -moz-box-shadow: -2px 2px 15px 0 #0A0A0A inset;
+}
+
+.app-sidebar .app-button {
+    border-left: 0px;
+    border-bottom: 0px;
+    border-right: 1px;
+    border-top: 1px;
+    border-style: solid;
+    border-color: #0A0A0A;
 }
 
 .app-sidebar .app-last-button {
@@ -90,11 +102,11 @@ body {
     text-decoration: none;
 }
 
-.app-sidebar .app-active-button {
+.app-sidebar .app-button.active {
     background-color: #333333;
     border: 0;
 }
-.app-sidebar .app-active-button:hover * {
+.app-sidebar .app-button.active:hover * {
 	cursor: default;
 }
 
@@ -105,7 +117,7 @@ body {
 .app-sidebar-menu {
 	height: 155px;
 }
-.app-active-button > a {
+.app-button.active > a {
     color: #ffffff;
 }
 /* height should be 100 divided by amount of entries */
