@@ -1,15 +1,23 @@
+.row#notification-bar {
+	position: absolute;
+	z-index: 999;
+	width: 100%;
+	display: none;
+}
+
 .notifications .notification {
 	font-size: 20px;
+	color: white;
 }
 .notifications .notification.success {
-	color: green;
+	background-color: green;
 }
 .notifications .notification.info {
-	color: blue;
+	background-color: blue;
 }
 .notifications .notification.warning {
-	color: orange;
+	background-color: orange;
 }
 .notifications .notification.error {
-	color: red;
+	background-color: red;
 }

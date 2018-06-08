@@ -22,6 +22,22 @@
       <li onclick="deleteFromCM('tunnel')" class="delete"><a href="#">Delete</a></li>
     </ul>
     <div class="container-fluid">
+      <div class="row" id="notification-bar">
+        <div class="notifications">
+          <div class="notification success">
+              This is dummy success notification
+          </div>
+          <!--<div class="notification info">
+              This is dummy info notification
+          </div>
+          <div class="notification warning">
+              This is dummy warning notification
+          </div>
+          <div class="notification error">
+              This is dummy error notification
+          </div>-->
+        </div>
+      </div>
       <!-- main container -->
       <div id="app-window-main" class="row app-window">
         <!-- main row - covers complete screen -->
@@ -31,10 +47,10 @@
             <ul class="app-sidebar-menu">
               <!--<li class="app-button app-active-button"><a href="#"><span class="glyphicon glyphicon-hdd"></span><span>Servers</span></a></li>
               <li class="app-button app-middle-button"><a href="#"><span class="glyphicon glyphicon-info-sign"></span><span>About</span></a></li>-->
-              <li class="app-button app-button active"><a href="#dashboard"><span class="glyphicon glyphicon-home"></span><span>Dashboard</span></a></li>
+              <li class="app-button active"><a href="#dashboard"><span class="glyphicon glyphicon-home"></span><span>Dashboard</span></a></li>
               <li class="app-button"><a href="#unixops"><span class="glyphicon glyphicon-cloud"></span><span>Unix Ops</span></a></li>
               <li class="app-button"><a href="#servers"><span class="glyphicon glyphicon-eye-open"></span><span>Servers</span></a></li>
-              <li class="app-button app-last-button"><a href="#about"><span class="glyphicon glyphicon-info-sign"></span><span>About</span></a></li>
+              <li class="app-button"><a href="#about"><span class="glyphicon glyphicon-info-sign"></span><span>About</span></a></li>
             </ul>
           </div>
         </div>
@@ -44,27 +60,13 @@
             <div class="row">
               <div class="content-header">
                 <!-- @TODO auto focus on CTRL+F -->
-                <ul class="navigation">
+                <ul class="navigation pull-right">
                   <li class="search-box" onclick="toggleSearchBox()"><span class="glyphicon glyphicon-search"></span></li>
                   <li class="search-input"><input type="text" placeholder="Search for..."></li>
                 </ul>
-                <ul class="navigation pull-right">
+                <!--<ul class="navigation">
                   <li>No active tunnels</li>
-                </ul>
-              </div>
-              <div class="notifications">
-                <div class="notification success">
-                    This is dummy success notification
-                </div>
-                <div class="notification info">
-                    This is dummy info notification
-                </div>
-                <div class="notification warning">
-                    This is dummy warning notification
-                </div>
-                <div class="notification error">
-                    This is dummy error notification
-                </div>
+                </ul>-->
               </div>
               <!--<h2>
                   Click in a server to view details, or 
@@ -296,7 +298,7 @@
               </div>-->
             </div>
             <div class="row app-tunnel-quick-access">
-              <h4>Quick Access</h4>
+              <h4 onclick="showNotification()">Quick Access</h4>
                 <ul id="app-tunnel-quick-access-list">
                   <!-- mockup <li class="playable">
                     <span><span class="glyphicon glyphicon-play"></span> Name</span>
@@ -347,5 +349,6 @@
     <script type="application/javascript" src="custom/script.js"></script>
     <script type="application/javascript" src="custom/operations.js"></script>
     <script type="application/javascript" src="custom/js/searcher.js"></script>
+    <script type="application/javascript" src="custom/js/notifier.js"></script>
   </body>
 </html>

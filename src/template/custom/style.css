@@ -34,10 +34,6 @@ body {
     height: 100%;
 }
 
-.app-sidebar .app-button {
-    background-color: #272727;
-}
-
 .app-button-label {
     color: #797979;
 }
@@ -63,67 +59,54 @@ body {
 }
 
 .app-sidebar .app-button {
+    background-color: #272727;
     border-left: 0px;
     border-bottom: 0px;
     border-right: 1px;
     border-top: 1px;
     border-style: solid;
     border-color: #0A0A0A;
+    height: 77px;
+    padding-top: 15px;
 }
 
-.app-sidebar .app-last-button {
-    border-left: 0px;
-    border-bottom: 1px;
-    border-right: 1px;
-    border-top: 1px;
-    border-style: solid;
-    border-color: #0A0A0A;
-}
-
-.app-button span {
+.app-sidebar .app-button span {
 	width: 100%;
 	display: inline-block;
     text-align: center;
 }
-.app-button .glyphicon {
-	margin-top: 15px;
+.app-sidebar .app-button .glyphicon {
 	font-size: 36px;
 }
 
-.app-button > a {
+.app-sidebar .app-button > a {
     color: #474747;
+    /*color: #797979;*/
 }
 
-.app-button > a:hover {
+.app-sidebar .app-button.active > a {
+    color: #ffffff;
+}
+
+.app-sidebar .app-button > a:hover {
     cursor: pointer;
     text-decoration: none;
 }
-.app-button > a:focus {
+.app-sidebar .app-button > a:focus {
     text-decoration: none;
 }
 
 .app-sidebar .app-button.active {
     background-color: #333333;
-    border: 0;
+    border-right: 0;
+    
 }
-.app-sidebar .app-button.active:hover * {
+
+.app-sidebar .app-button.active:hover {
 	cursor: default;
 }
 
-.app-sidebar-menu a {
-    color: #797979;
-}
 
-.app-sidebar-menu {
-	height: 155px;
-}
-.app-button.active > a {
-    color: #ffffff;
-}
-/* height should be 100 divided by amount of entries */
-.app-sidebar-menu > li {
-	height: 50%;
-}
 
 .app-sidebar {
     padding-left: 0;
