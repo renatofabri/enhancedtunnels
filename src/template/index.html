@@ -47,10 +47,10 @@
             <ul class="app-sidebar-menu">
               <!--<li class="app-button app-active-button"><a href="#"><span class="glyphicon glyphicon-hdd"></span><span>Servers</span></a></li>
               <li class="app-button app-middle-button"><a href="#"><span class="glyphicon glyphicon-info-sign"></span><span>About</span></a></li>-->
-              <li class="app-button active"><a href="#dashboard"><span class="glyphicon glyphicon-home"></span><span>Dashboard</span></a></li>
-              <li class="app-button"><a href="#unixops"><span class="glyphicon glyphicon-cloud"></span><span>Unix Ops</span></a></li>
-              <li class="app-button"><a href="#servers"><span class="glyphicon glyphicon-eye-open"></span><span>Servers</span></a></li>
-              <li class="app-button"><a href="#about"><span class="glyphicon glyphicon-info-sign"></span><span>About</span></a></li>
+              <li class="app-button active" for="app-dashboard"><a href="#dashboard"><span class="glyphicon glyphicon-home"></span><span>Dashboard</span></a></li>
+              <li class="app-button" for="app-unix-ops"><a href="#unixops"><span class="glyphicon glyphicon-cloud"></span><span>Unix Ops</span></a></li>
+              <li class="app-button" for="app-tunnels"><a href="#servers"><span class="glyphicon glyphicon-eye-open"></span><span>Act. Tunnels</span></a></li>
+              <li class="app-button" for="app-info"><a href="#about"><span class="glyphicon glyphicon-info-sign"></span><span>About</span></a></li>
             </ul>
           </div>
         </div>
@@ -297,7 +297,7 @@
                 </div>
               </div>-->
             </div>
-            <div class="row app-tunnel-quick-access">
+            <div id="app-dashboard" class="row app-tunnel-quick-access">
               <h4 onclick="showNotification()">Quick Access</h4>
                 <ul id="app-tunnel-quick-access-list">
                   <!-- mockup <li class="playable">
@@ -320,6 +320,12 @@
                   </li>-->
                 </ul>
             </div>
+          </div>
+          <div id="app-unix-ops" style="display: none;">
+          	<h3>Unix Ops</h3>
+          </div>
+          <div id="app-tunnels" style="display: none;">
+          	<h3>Active Tunnels</h3>
           </div>
           <div id="app-about" style="display: none;">
             <div class="row">

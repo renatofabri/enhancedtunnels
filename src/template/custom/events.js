@@ -10,10 +10,13 @@ $(document).on('show.bs.modal', '.modal', function () {
 $(".app-button").click(function() {
 	if ($(this).hasClass('active'))
 		return;
-	$(this).parent().find('.active').removeClass('active');
+	var lastActiveButton = $(this).parent().find('.active');
+	lastActiveButton.removeClass('active');
+	var lastVisiblePanel = lastActiveButton.attr('for');
+	$('#'+lastVisiblePanel).toggle();
 	$(this).addClass('active');
-    $("#app-about").toggle();
-    $("#app-application").toggle();
+	var currentVisiblePanel = $(this).attr('for');
+	$('#'+currentVisiblePanel).toggle();
 });
 
 
